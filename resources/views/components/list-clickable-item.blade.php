@@ -1,8 +1,16 @@
-@props(['href' => null, 'title' => null, 'badge' => null])
+@props(['href' => null, 'title' => null, 'badge' => null, 'compact' => false, 'active' => false])
+
+@php
+if($active) {
+    $classes = 'block hover:bg-gray-50 bg-emerald-100 hover:bg-emerald-200 transition';
+} else {
+    $classes = 'block hover:bg-gray-50';
+}
+@endphp
 
 <li>
-    <a href="{{ $href }}" class="block hover:bg-gray-50">
-        <div class="px-4 py-4 sm:px-6">
+    <a {{ $attributes->merge(['href' => $href, 'class' => $classes ]) }}>
+        <div class="@if($compact) px-2 py-2 sm:px-4 @else px-4 py-4 sm:px-6 @endif">
             <div class="flex items-center justify-between">
                 <p class="text-sm font-medium text-emerald-600 truncate">
                     {{ $title }}
@@ -20,18 +28,20 @@
                     {{ $slot }}
                 </div>
             @endif
-            <div class="mt-2 sm:flex sm:justify-between">
-                @if(isset($footerLeftIcons))
-                    <div class="sm:flex">
-                        {{ $footerLeftIcons }}
-                    </div>
-                @endif
-                @if(isset($footerRightIcons))
-                    <div class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
-                        {{ $footerRightIcons }}
-                    </div>
-                @endif
-            </div>
+            @if(isset($footerLeftIcons) || isset($footerRightIcons))
+                <div class="mt-2 sm:flex sm:justify-between">
+                    @if(isset($footerLeftIcons))
+                        <div class="sm:flex">
+                            {{ $footerLeftIcons }}
+                        </div>
+                    @endif
+                    @if(isset($footerRightIcons))
+                        <div class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
+                            {{ $footerRightIcons }}
+                        </div>
+                    @endif
+                </div>
+            @endif
         </div>
     </a>
 </li>

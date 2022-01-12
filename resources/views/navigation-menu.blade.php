@@ -7,7 +7,7 @@
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
                         <!-- <x-application-mark class="block h-9 w-auto" /> -->
-                        <h3 class="block h-9 w-auto text-xl text-white mt-1.5 ml-6">Homeschool Connections</h3>
+                        <h3 class="block h-9 w-auto text-xl text-white mt-1.5 sm:ml-6">Homeschool Connections</h3>
                     </a>
                 </div>
 
@@ -19,6 +19,14 @@
                     <x-nav-link href="{{ route('shop') }}" :active="request()->routeIs('shop')">
                         {{ __('Shop') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('instructors') }}" :active="request()->routeIs('instructors')">
+                        {{ __('Instructors') }}
+                    </x-nav-link>
+                    @if(\Illuminate\Support\Facades\Auth::user()->rank >= 5)
+                        <x-nav-link href="{{ route('admin') }}" :active="request()->routeIs('admin')">
+                            {{ __('Admin') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -159,6 +167,14 @@
             <x-responsive-nav-link href="{{ route('shop') }}" :active="request()->routeIs('shop')">
                 {{ __('Shop') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('instructors') }}" :active="request()->routeIs('instructors')">
+                {{ __('Instructors') }}
+            </x-responsive-nav-link>
+            @if(\Illuminate\Support\Facades\Auth::user()->rank >= 5)
+                <x-responsive-nav-link href="{{ route('admin') }}" :active="request()->routeIs('admin')">
+                    {{ __('Admin') }}
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->

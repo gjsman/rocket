@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
@@ -26,7 +28,7 @@ Route::get('/dashboard', function () {
 
 Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 Route::get('/shop/{course}', [ShopController::class, 'show'])->name('shop.show');
-
+Route::get('/instructors', [InstructorController::class, 'index'])->name('instructors');
 
 /** Only logged in and verified users can see these routes. */
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
@@ -50,7 +52,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     /** Only admins can see these routes. */
     Route::middleware(['admin'])->group(function () {
-
+        Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+        Route::get('/admin/courses', [AdminController::class, 'courses'])->name('admin.courses');
+        Route::get('/admin/instructors', [AdminController::class, 'instructors'])->name('admin.instructors');
     });
 });
 

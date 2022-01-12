@@ -31,10 +31,7 @@
                             {{ __('Shop for live courses') }}
                         </x-secondary-button>
                     </x-header>
-                    <?php
-                        $courses = \App\Models\Course::inRandomOrder()->where('type', 1)->limit(3)->get();
-                    ?>
-                    @forelse($courses as $course)
+                    @forelse(student()->courses->where('type', 1) as $course)
                         <x-list-clickable-course :course="$course" :showSeats="false" :showType="false"></x-list-clickable-course>
                     @empty
                         <x-list-clickable-item title="{{ __('No live courses') }}" href="{{ url('/shop?courseType=1') }}" badge="{{ __('Go to shop') }} →">
@@ -56,11 +53,8 @@
                             </x-secondary-button>
                         @endif
                     </x-header>
-                    <?php
-                        $courses = \App\Models\Course::inRandomOrder()->where('type', 2)->limit(3)->get();
-                    ?>
                     @if(\Illuminate\Support\Facades\Auth::user()->sparkPlan())
-                        @forelse($courses as $course)
+                        @forelse(student()->courses->where('type', 2) as $course)
                             <x-list-clickable-course :course="$course" :showSeats="false" :showType="false"></x-list-clickable-course>
                         @empty
                             <x-list-clickable-item title="{{ __('No recorded courses') }}" href="{{ url('/shop?courseType=2') }}" badge="{{ __('Go to shop') }} →">
