@@ -1,6 +1,6 @@
 @props(['course', 'showSeats' => true, 'showType' => true])
 
-<x-list-clickable-item title="{{ $course->name }}">
+<x-list-clickable-item title="{{ $course->name }}" href="{{ route('course', $course->id) }}">
     <p class="text-sm mt-1">{{ $course->short_summary }}</p>
     <x-slot name="footerLeftIcons">
         <x-list-icon :fixSpacing="false" title="{{ $course->instructor->name }}">

@@ -24,6 +24,8 @@
 
             <div class="hidden sm:flex sm:items-center sm:ml-6 mr-6">
                 @if(\Illuminate\Support\Facades\Auth::check())
+                    <x-select-student :showInMenu="true" :showStudentName="false" />
+
                     <!-- Teams Dropdown -->
                     @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                         <div class="ml-3 relative">

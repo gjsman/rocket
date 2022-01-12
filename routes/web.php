@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,10 +24,37 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
+Route::get('/shop', [ShopController::class, 'index'])->name('shop');
+Route::get('/shop/{course}', [ShopController::class, 'show'])->name('shop.show');
+
+
+/** Only logged in and verified users can see these routes. */
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+
+    Route::get('/student/unset', [StudentController::class, 'unset'])->name('student.unset');
+    Route::get('/student/{student}', [StudentController::class, 'set'])->name('student.set');
+
     Route::get('/students', function() {
         return view('student.index');
     })->name('students.manage');
 
-    Route::get('/shop', [ShopController::class, 'index'])->name('shop');
+    /** Only students can see these routes. */
+    Route::middleware(['student'])->group(function () {
+
+    });
+
+    /** Only parents can see these routes. */
+    Route::middleware(['parent'])->group(function () {
+
+    });
+
+    /** Only admins can see these routes. */
+    Route::middleware(['admin'])->group(function () {
+
+    });
+});
+
+/** Only enrolled can see these routes. */
+Route::middleware(['enrolled'])->group(function () {
+    Route::get('/course/{course}', [CourseController::class, 'index'])->name('course');
 });
