@@ -22,10 +22,12 @@
                     <x-nav-link href="{{ route('instructors') }}" :active="request()->routeIs('instructors')">
                         {{ __('Instructors') }}
                     </x-nav-link>
-                    @if(\Illuminate\Support\Facades\Auth::user()->rank >= 5)
-                        <x-nav-link href="{{ route('admin') }}" :active="request()->routeIs('admin')">
-                            {{ __('Admin') }}
-                        </x-nav-link>
+                    @if(\Illuminate\Support\Facades\Auth::check())
+                        @if(\Illuminate\Support\Facades\Auth::user()->rank >= 5)
+                            <x-nav-link href="{{ url('/admin') }}">
+                                {{ __('Admin') }}
+                            </x-nav-link>
+                        @endif
                     @endif
                 </div>
             </div>
@@ -170,10 +172,12 @@
             <x-responsive-nav-link href="{{ route('instructors') }}" :active="request()->routeIs('instructors')">
                 {{ __('Instructors') }}
             </x-responsive-nav-link>
-            @if(\Illuminate\Support\Facades\Auth::user()->rank >= 5)
-                <x-responsive-nav-link href="{{ route('admin') }}" :active="request()->routeIs('admin')">
-                    {{ __('Admin') }}
-                </x-responsive-nav-link>
+            @if(\Illuminate\Support\Facades\Auth::check())
+                @if(\Illuminate\Support\Facades\Auth::user()->rank >= 5)
+                    <x-responsive-nav-link href="{{ url('/admin') }}">
+                        {{ __('Admin') }}
+                    </x-responsive-nav-link>
+                @endif
             @endif
         </div>
 

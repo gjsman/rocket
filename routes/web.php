@@ -52,13 +52,20 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     /** Only admins can see these routes. */
     Route::middleware(['admin'])->group(function () {
+        /*
         Route::get('/admin', [AdminController::class, 'index'])->name('admin');
         Route::get('/admin/courses', [AdminController::class, 'courses'])->name('admin.courses');
         Route::get('/admin/instructors', [AdminController::class, 'instructors'])->name('admin.instructors');
+        */
     });
+});
+
+Route::middleware(['canViewCourse'])->group(function () {
+    Route::get('/course/{course}', [CourseController::class, 'index'])->name('course');
+    Route::get('/course/{course}/{location}', [CourseController::class, 'location'])->name('course.location');
 });
 
 /** Only enrolled can see these routes. */
 Route::middleware(['enrolled'])->group(function () {
-    Route::get('/course/{course}', [CourseController::class, 'index'])->name('course');
+    // Route::get('/course/{course}', [CourseController::class, 'index'])->name('course');
 });
