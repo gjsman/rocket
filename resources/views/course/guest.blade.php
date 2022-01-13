@@ -19,11 +19,13 @@
                     @endif
                 </ul>
             </x-panel>
-            @if((\Illuminate\Support\Facades\Auth::user()->rank >= 5) && !student())
-                <x-panel class="mb-8">
-                    <h3 class="text-lg mb-2">{{ __('Admin Options') }}</h3>
-                    <x-button href="{{ route('course', $course) }}">{{ __('Open course') }} &rarr;</x-button>
-                </x-panel>
+            @if(\Illuminate\Support\Facades\Auth::check())
+                @if((\Illuminate\Support\Facades\Auth::user()->rank >= 5) && !student())
+                    <x-panel class="mb-8">
+                        <h3 class="text-lg mb-2">{{ __('Admin Options') }}</h3>
+                        <x-button href="{{ route('course', $course) }}">{{ __('Open course') }} &rarr;</x-button>
+                    </x-panel>
+                @endif
             @endif
             <x-panel class="mb-8">
                 <h3 class="text-lg mb-2">{{ __('Enrollment Options') }}</h3>
