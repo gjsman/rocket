@@ -30,7 +30,15 @@ class CourseController extends Controller
                 $this->setLocation($course, 'information');
             }
         } elseif ($location === 'information' || $location === 'participants' || $location === 'completion') {
-            $this->setLocation($course, $location);
+            if ($location === 'participants') {
+                if(Auth::user()->can('update', $course)) {
+                    $this->setLocation($course, $location);
+                } else {
+                    $this->setLocation($course, 'information');
+                }
+            } else {
+                $this->setLocation($course, $location);
+            }
         } else {
             $this->setLocation($course, 'information');
         }
