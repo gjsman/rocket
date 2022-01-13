@@ -8,11 +8,20 @@
             {{ __('Participants') }}
         </x-sidebar-item>
     @endif
-    @foreach($sections as $section)
-        <x-sidebar-item href="{{ route('course.location', ['course' => $course, 'location' => $section->id]) }}" :active="(int) $location === $section->id">
-            {{ $section->name }}
-        </x-sidebar-item>
-    @endforeach
+    <ul @if (\Illuminate\Support\Facades\Auth::user()->can('update', $this->course) && !student()) wire:sortable="updateSectionOrder" @endif>
+        @foreach($sections as $section)
+            <li @if (\Illuminate\Support\Facades\Auth::user()->can('update', $this->course) && !student()) wire:sortable.item="{{ $section->id }}" wire:key="SECTION-{{ $section->id }}" @endif>
+                <x-sidebar-item href="{{ route('course.location', ['course' => $course, 'location' => $section->id]) }}" :active="(int) $location === $section->id">
+                    @if (\Illuminate\Support\Facades\Auth::user()->can('update', $this->course) && !student())
+                        <svg xmlns="http://www.w3.org/2000/svg" style="cursor: move; width: 24px; height: 24px;" class="inline" wire:sortable.handle fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
+                        </svg>
+                    @endif
+                    {{ $section->name }}
+                </x-sidebar-item>
+            </li>
+        @endforeach
+    </ul>
     <x-sidebar-item href="{{ route('course.location', ['course' => $course, 'location' => 'completion']) }}" :active="$location === 'completion'">
         {{ __('Completion') }}
     </x-sidebar-item>
