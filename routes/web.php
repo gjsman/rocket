@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\InstructorController;
@@ -64,6 +65,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/video/{element}', [VideoController::class, 'show'])->name('video');
         Route::get('/link/{element}', [LinkController::class, 'show'])->name('link');
         Route::get('/file/{element}', [FileController::class, 'show'])->name('file');
+        Route::get('/book/{element}', [BookController::class, 'show'])->name('book');
+        Route::get('/book/{element}/{location}', [BookController::class, 'location'])->name('book.location');
     });
 
     Route::middleware(['canEditCourse'])->group(function () {
@@ -85,6 +88,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/file/create/{section}', [FileController::class, 'create'])->name('file.create');
         Route::get('/file/{element}/edit', [FileController::class, 'edit'])->name('file.edit');
         Route::get('/file/{element}/delete', [FileController::class, 'delete'])->name('file.delete');
+
+        Route::get('/book/create/{section}', [BookController::class, 'create'])->name('book.create');
+        Route::get('/book/{element}/edit', [BookController::class, 'edit'])->name('book.edit');
+        Route::get('/book/{element}/delete', [BookController::class, 'delete'])->name('book.delete');
     });
 });
 

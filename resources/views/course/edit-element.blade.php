@@ -31,9 +31,9 @@
                 $editorName = 'edit-'.strtolower(class_basename($element));
             } else {
                 $editorName = 'edit-'.strtolower(class_basename($class));
-                if($editorName === 'edit-textblock') {
-                    $editorName = 'edit-text-block';
-                }
+            }
+            if($editorName === 'edit-textblock') {
+                $editorName = 'edit-text-block';
             }
         @endphp
         @if(isset($element))

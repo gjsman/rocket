@@ -122,6 +122,7 @@
                         <x-secondary-button href="{{ route('link.create', ['section' => $section]) }}">{{ __('Link') }}</x-secondary-button>
                         <x-secondary-button href="{{ route('textblock.create', ['section' => $section]) }}">{{ __('Text Block') }}</x-secondary-button>
                         <x-secondary-button href="{{ route('file.create', ['section' => $section]) }}">{{ __('File') }}</x-secondary-button>
+                        <x-secondary-button href="{{ route('book.create', ['section' => $section]) }}">{{ __('Book') }}</x-secondary-button>
                     </x-panel>
                 @endcan
             @endif

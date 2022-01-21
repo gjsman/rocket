@@ -38,4 +38,9 @@ class Section extends Model
     {
         return $this->hasMany(File::class);
     }
+
+    public function books(): HasMany
+    {
+        return $this->hasMany(Book::class);
+    }
 }

@@ -23,11 +23,13 @@ class Elements extends Component
             $links = $this->section->links;
             $textBlocks = $this->section->textBlocks;
             $files = $this->section->files;
+            $books = $this->section->books;
         } else {
             $videos = $this->section->videos->where('visible', true);
             $links = $this->section->links->where('visible', true);
             $textBlocks = $this->section->textBlocks->where('visible', true);
             $files = $this->section->files->where('visible', true);
+            $books = $this->section->books->where('visible', true);
         }
 
         $elements = new Collection;
@@ -35,6 +37,7 @@ class Elements extends Component
         $elements = $elements->merge($links);
         $elements = $elements->merge($textBlocks);
         $elements = $elements->merge($files);
+        $elements = $elements->merge($books);
 
         $this->elements = $elements->sortBy('order');
 
