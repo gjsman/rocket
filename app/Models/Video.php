@@ -2,21 +2,24 @@
 
 namespace App\Models;
 
+use App\Traits\Element;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Section extends Model
+class Video extends Model
 {
     use HasFactory;
+    use Element;
 
-    protected $fillable = ['name', 'short_summary', 'summary', 'course_id', 'visible', 'order'];
-
-    public function course(): BelongsTo
-    {
-        return $this->belongsTo(Course::class);
-    }
+    protected $fillable = [
+        'name',
+        'summary',
+        'url',
+        'order',
+        'section_id',
+        'visible'
+    ];
 
     public function videos(): HasMany
     {

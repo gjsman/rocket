@@ -1,4 +1,4 @@
-<div {!! $attributes->merge(['class' => 'bg-white overflow-hidden shadow rounded-none sm:rounded-lg']) !!}>
+<div {!! $attributes->merge(['class' => 'bg-white overflow-visible shadow rounded-none sm:rounded-lg']) !!}>
     @if(isset($header))
         {{ $header }}
     @endif

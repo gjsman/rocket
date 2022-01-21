@@ -22,14 +22,18 @@
                     <x-slot name="header">
                         <x-header title="{{ $course->name }}" />
                     </x-slot>
-                    {!! $course->summary !!}
+                    <div class="prose">
+                        {!! $course->summary !!}
+                    </div>
                 </x-panel>
                 @if($course->instructor->summary)
                     <x-panel class="mb-8">
                         <x-slot name="header">
                             <x-header title="{{ __('About the instructor, ').$course->instructor->name }}" />
                         </x-slot>
-                        {!! $course->instructor->summary !!}
+                        <div class="prose">
+                            {!! $course->instructor->summary !!}
+                        </div>
                     </x-panel>
                 @endif
                 <x-panel>
@@ -58,17 +62,57 @@
                     <x-slot name="header">
                         <x-header title="{{ __('Course Completion') }}" />
                     </x-slot>
+                    @if($course->type === 2 && student())
+                        <x-button :href="route('course.unenroll', ['course' => $course, 'student' => student()])">{{ __('Unenroll from course') }}</x-button>
+                    @endif
                 </x-panel>
-            @else
-                <?php
-                    $section = \App\Models\Section::where('id', $location)->where('course_id', $course->id)->first();
-                ?>
+            @elseif($location === 'instructorAccess')
                 <x-panel class="mb-8">
                     <x-slot name="header">
-                        <x-header title="{{ $section->name }}" />
+                        <x-header title="{{ __('Instructor Access') }}" />
                     </x-slot>
-                    {{ $section->summary }}
+                    {!! $course->instructor_access_link !!}
                 </x-panel>
+            @elseif($location === 'addSection')
+                <x-panel class="mb-8">
+                    <x-slot name="header">
+                        <x-header title="{{ __('Add a section') }}" />
+                    </x-slot>
+                    @livewire('edit-section', ['course' => $course])
+                </x-panel>
+            @else
+                <x-panel class="mb-8">
+                    <x-slot name="header">
+                        <x-header>
+                            <x-slot name="title">
+                                {{ $section->name }}
+                            </x-slot>
+                            @can('update', $section)
+                                <x-dropdown align="right" width="48">
+                                    <x-slot name="trigger">
+                                        <span class="inline-flex rounded-md">
+                                           <x-secondary-button type="button">
+                                                {{ __('Options') }}
+                                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                </svg>
+                                            </x-secondary-button>
+                                        </span>
+                                    </x-slot>
+                                    <x-slot name="content">
+                                        <x-dropdown-link href="{{ route('section.edit', ['section' => $section]) }}">
+                                            {{ __('Edit or Delete section') }}
+                                        </x-dropdown-link>
+                                    </x-slot>
+                                </x-dropdown>
+                            @endcan
+                        </x-header>
+                    </x-slot>
+                    <div class="prose">
+                        {!! $section->summary !!}
+                    </div>
+                </x-panel>
+                @livewire('elements', ['section' => $section])
             @endif
         </div>
     </div>

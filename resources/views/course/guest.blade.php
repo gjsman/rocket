@@ -34,7 +34,29 @@
                         <p>{{ __('This live course costs $0.00.') }}</p>
                     @elseif($course->type === 2)
                         @if(\Illuminate\Support\Facades\Auth::user()->sparkPlan())
-
+                            @if(student())
+                                <p class="mb-4">{{ __('Enroll in the course') }}</p>
+                                <x-button :href="route('course.enroll', ['course' => $course, 'student' => student()])">{{ __('Enroll myself') }}</x-button>
+                                <p class="mt-4 mb-4">{{ __('Enroll a different student') }}</p>
+                                <ul>
+                                    @foreach(\Illuminate\Support\Facades\Auth::user()->students as $student)
+                                        @if($student->id !== student()->id)
+                                            <li>
+                                                <x-button :class="($loop->last) ? 'mb-0' : 'mb-4'" :href="route('course.enroll', ['course' => $course, 'student' => $student])">{{ __('Enroll ').$student->name }}</x-button>
+                                            </li>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            @else
+                                <p class="mb-4">{{ __('Enroll a student') }}</p>
+                                <ul>
+                                    @foreach(\Illuminate\Support\Facades\Auth::user()->students as $student)
+                                        <li>
+                                            <x-button :class="($loop->last) ? 'mb-0' : 'mb-4'" :href="route('course.enroll', ['course' => $course, 'student' => $student])">{{ __('Enroll ').$student->name }}</x-button>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
                         @else
                             <p class="mb-4">{{ __('You must be subscribed to take this course.') }}</p>
                             <x-button href="{{ url('/subscription') }}">{{ __('Subscribe') }}</x-button>
@@ -64,14 +86,18 @@
                 <x-slot name="header">
                     <x-header title="{{ $course->name }}" />
                 </x-slot>
-                {!! $course->summary !!}
+                <div class="prose">
+                    {!! $course->summary !!}
+                </div>
             </x-panel>
             @if($course->instructor->summary)
                 <x-panel class="mb-8">
                     <x-slot name="header">
                         <x-header title="{{ __('About the instructor, ').$course->instructor->name }}" />
                     </x-slot>
-                    {!! $course->instructor->summary !!}
+                    <div class="prose">
+                        {!! $course->instructor->summary !!}
+                    </div>
                 </x-panel>
             @endif
         </div>

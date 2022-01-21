@@ -92,8 +92,16 @@ class CourseResource extends Resource
                 Tables\Columns\BooleanColumn::make('visible'),
                 Tables\Columns\TextColumn::make('category_id'),
                 Tables\Columns\TextColumn::make('instructor_id'),
-                Tables\Columns\TextColumn::make('type'),
-                Tables\Columns\TextColumn::make('difficulty'),
+                Tables\Columns\TextColumn::make('type')->enum([
+                    '1' => 'Live',
+                    '2' => 'Recorded',
+                ]),
+                Tables\Columns\TextColumn::make('difficulty')->enum([
+                    '1' => 'Elementary',
+                    '2' => 'Middle',
+                    '3' => 'High',
+                    '4' => 'Adult',
+                ]),
             ])
             ->filters([
                 //
@@ -103,7 +111,7 @@ class CourseResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\SectionRelationManager::class,
         ];
     }
 

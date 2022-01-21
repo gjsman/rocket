@@ -23,6 +23,16 @@
                 <x-select-student :showStudentName="false" :showInMenu="false" />
             </div>
         </x-panel>
+        @if(\Illuminate\Support\Facades\Auth::user()->instructing !== null)
+            <div class="mb-8">
+                <x-list>
+                    <x-header title="{{ __('Courses I Am Instructing') }}" :list="true" />
+                    @foreach(\Illuminate\Support\Facades\Auth::user()->instructing as $course)
+                        <x-list-clickable-course :course="$course" :showInstructor="false" :showSeats="false" :showType="true"></x-list-clickable-course>
+                    @endforeach
+                </x-list>
+            </div>
+        @endif
         @if(student())
             <div class="md:grid grid-cols-1 md:grid-cols-2 md:gap-6 mb-8">
                 <x-list class="col-span-1 h-fit mb-8 md:mb-0">

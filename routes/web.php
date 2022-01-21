@@ -40,6 +40,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         return view('student.index');
     })->name('students.manage');
 
+    Route::get('/course/{course}/enroll/{student}', [CourseController::class, 'enroll'])->name('course.enroll');
+    Route::get('/course/{course}/unenroll/{student}', [CourseController::class, 'unenroll'])->name('course.unenroll');
+
     /** Only students can see these routes. */
     Route::middleware(['student'])->group(function () {
 
@@ -63,6 +66,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 Route::middleware(['canViewCourse'])->group(function () {
     Route::get('/course/{course}', [CourseController::class, 'index'])->name('course');
     Route::get('/course/{course}/{location}', [CourseController::class, 'location'])->name('course.location');
+});
+
+Route::middleware(['canEditCourse'])->group(function () {
+    Route::get('/section/edit/{section}', [CourseController::class, 'editSection'])->name('section.edit');
+    Route::get('/section/delete/{section}', [CourseController::class, 'deleteSection'])->name('section.delete');
 });
 
 /** Only enrolled can see these routes. */

@@ -1,14 +1,16 @@
-@props(['course', 'showSeats' => true, 'showType' => true])
+@props(['course', 'showSeats' => true, 'showType' => true, 'showInstructor' => true])
 
 <x-list-clickable-item title="{{ $course->name }}" href="{{ route('course', $course->id) }}">
     <p class="text-sm mt-1">{{ $course->short_summary }}</p>
     <x-slot name="footerLeftIcons">
-        <x-list-icon :fixSpacing="false" title="{{ $course->instructor->name }}">
-            <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
-        </x-list-icon>
-        <x-list-icon :fixSpacing="true" title="{{ $course->difficultyName() }}">
+        @if($showInstructor)
+            <x-list-icon :fixSpacing="false" title="{{ $course->instructor->name }}">
+                <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+            </x-list-icon>
+        @endif
+        <x-list-icon :fixSpacing="$showInstructor" title="{{ $course->difficultyName() }}">
             <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
             </svg>

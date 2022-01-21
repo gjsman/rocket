@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\CourseProgress;
 use App\Models\Section;
+use App\Models\Student;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -18,7 +19,12 @@ class CourseController extends Controller
     public function index(Course $course): Factory|View|Application|RedirectResponse
     {
         $location = $this->getLocation($course);
-        return view('course.index', ['course' => $course, 'location' => $location]);
+        $section = null;
+        if(is_numeric($location)) {
+            $section = Section::where('id', $location)->where('course_id', $course->id)->first();
+            if(!$section) return redirect()->route('course.location', ['course' => $course, 'location' => 'information']);
+        }
+        return view('course.index', ['course' => $course, 'location' => $location, 'section' => $section]);
     }
 
     public function location(Course $course, string $location): RedirectResponse
@@ -29,8 +35,8 @@ class CourseController extends Controller
             } else {
                 $this->setLocation($course, 'information');
             }
-        } elseif ($location === 'information' || $location === 'participants' || $location === 'completion') {
-            if ($location === 'participants') {
+        } elseif ($location === 'information' || $location === 'addSection' || $location === 'instructorAccess' || $location === 'participants' || $location === 'completion') {
+            if ($location === 'participants' || $location === 'addSection') {
                 if(Auth::user()->can('update', $course)) {
                     $this->setLocation($course, $location);
                 } else {
@@ -87,5 +93,29 @@ class CourseController extends Controller
                     ->first();
         }
         return $progress;
+    }
+
+    public function enroll(Course $course, Student $student): RedirectResponse
+    {
+        $course->enroll($student);
+        return redirect()->route('course', $course);
+    }
+
+    public function unenroll(Course $course, Student $student): RedirectResponse
+    {
+        $course->unenroll($student);
+        return redirect()->route('course', $course);
+    }
+
+    public function editSection(Section $section): Factory|View|Application
+    {
+        return view('course.edit-section', ['section' => $section]);
+    }
+
+    public function deleteSection(Section $section): RedirectResponse
+    {
+        $course = $section->course;
+        $section->delete();
+        return redirect()->route('course', ['course' => $course]);
     }
 }

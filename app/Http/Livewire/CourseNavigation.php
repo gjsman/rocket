@@ -15,7 +15,7 @@ class CourseNavigation extends Component
     public Course $course;
     public string $location = 'information';
     public Collection $sections;
-    protected $listeners = ['visibilityChanged' => 'render'];
+    protected $listeners = ['visibilityChanged' => 'render', 'sectionCreated' => 'render'];
 
     public function render()
     {
