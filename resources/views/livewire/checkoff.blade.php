@@ -1,4 +1,4 @@
-<div class="d-inline-block">
+<div class="inline-block">
     {{-- Do your work, then step back. --}}
     @if($button)
         @if($checked)
@@ -34,6 +34,6 @@
         @endif
     @else
         {{-- Care about people's approval and you will be their prisoner. --}}
-        <input type="checkbox" wire:model="checked" class="cursor-default" />
+        <x-checkbox wire:model="checked" />
     @endif
 </div>

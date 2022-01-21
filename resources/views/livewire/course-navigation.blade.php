@@ -24,6 +24,10 @@
                         <svg xmlns="http://www.w3.org/2000/svg" style="cursor: move; width: 24px; height: 24px;" class="inline" wire:sortable.handle fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
                         </svg>
+                    @else
+                        <span class="mr-2">
+                            @livewire('checkoff', ['model' => $section], key('CHK-C-'.get_class($section).'-E-'.$section->id))
+                        </span>
                     @endif
                     {{ $section->name }}
                 </x-sidebar-item>

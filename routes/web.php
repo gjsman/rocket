@@ -2,9 +2,13 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\InstructorController;
+use App\Http\Controllers\LinkController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TextBlockController;
+use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,13 +30,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::get('/shop', [ShopController::class, 'index'])->name('shop');
-Route::get('/shop/{course}', [ShopController::class, 'show'])->name('shop.show');
-Route::get('/instructors', [InstructorController::class, 'index'])->name('instructors');
-
 /** Only logged in and verified users can see these routes. */
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-
     Route::get('/student/unset', [StudentController::class, 'unset'])->name('student.unset');
     Route::get('/student/{student}', [StudentController::class, 'set'])->name('student.set');
 
@@ -55,23 +54,44 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     /** Only admins can see these routes. */
     Route::middleware(['admin'])->group(function () {
-        /*
-        Route::get('/admin', [AdminController::class, 'index'])->name('admin');
-        Route::get('/admin/courses', [AdminController::class, 'courses'])->name('admin.courses');
-        Route::get('/admin/instructors', [AdminController::class, 'instructors'])->name('admin.instructors');
-        */
+
+    });
+
+    Route::middleware(['canViewCourse'])->group(function () {
+        Route::get('/course/{course}', [CourseController::class, 'index'])->name('course');
+        Route::get('/course/{course}/{location}', [CourseController::class, 'location'])->name('course.location');
+
+        Route::get('/video/{element}', [VideoController::class, 'show'])->name('video');
+        Route::get('/link/{element}', [LinkController::class, 'show'])->name('link');
+        Route::get('/file/{element}', [FileController::class, 'show'])->name('file');
+    });
+
+    Route::middleware(['canEditCourse'])->group(function () {
+        Route::get('/section/edit/{section}', [CourseController::class, 'editSection'])->name('section.edit');
+        Route::get('/section/delete/{section}', [CourseController::class, 'deleteSection'])->name('section.delete');
+
+        Route::get('/video/create/{section}', [VideoController::class, 'create'])->name('video.create');
+        Route::get('/video/{element}/edit', [VideoController::class, 'edit'])->name('video.edit');
+        Route::get('/video/{element}/delete', [VideoController::class, 'delete'])->name('video.delete');
+
+        Route::get('/link/create/{section}', [LinkController::class, 'create'])->name('link.create');
+        Route::get('/link/{element}/edit', [LinkController::class, 'edit'])->name('link.edit');
+        Route::get('/link/{element}/delete', [LinkController::class, 'delete'])->name('link.delete');
+
+        Route::get('/textBlock/create/{section}', [TextBlockController::class, 'create'])->name('textblock.create');
+        Route::get('/textBlock/{element}/edit', [TextBlockController::class, 'edit'])->name('textblock.edit');
+        Route::get('/textBlock/{element}/delete', [TextBlockController::class, 'delete'])->name('textblock.delete');
+
+        Route::get('/file/create/{section}', [FileController::class, 'create'])->name('file.create');
+        Route::get('/file/{element}/edit', [FileController::class, 'edit'])->name('file.edit');
+        Route::get('/file/{element}/delete', [FileController::class, 'delete'])->name('file.delete');
     });
 });
 
-Route::middleware(['canViewCourse'])->group(function () {
-    Route::get('/course/{course}', [CourseController::class, 'index'])->name('course');
-    Route::get('/course/{course}/{location}', [CourseController::class, 'location'])->name('course.location');
-});
 
-Route::middleware(['canEditCourse'])->group(function () {
-    Route::get('/section/edit/{section}', [CourseController::class, 'editSection'])->name('section.edit');
-    Route::get('/section/delete/{section}', [CourseController::class, 'deleteSection'])->name('section.delete');
-});
+Route::get('/shop', [ShopController::class, 'index'])->name('shop');
+Route::get('/shop/{course}', [ShopController::class, 'show'])->name('shop.show');
+Route::get('/instructors', [InstructorController::class, 'index'])->name('instructors');
 
 /** Only enrolled can see these routes. */
 Route::middleware(['enrolled'])->group(function () {

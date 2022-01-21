@@ -20,12 +20,21 @@ class Elements extends Component
     {
         if(Auth::user()->can('update', $this->section)) {
             $videos = $this->section->videos;
+            $links = $this->section->links;
+            $textBlocks = $this->section->textBlocks;
+            $files = $this->section->files;
         } else {
             $videos = $this->section->videos->where('visible', true);
+            $links = $this->section->links->where('visible', true);
+            $textBlocks = $this->section->textBlocks->where('visible', true);
+            $files = $this->section->files->where('visible', true);
         }
 
         $elements = new Collection;
         $elements = $elements->merge($videos);
+        $elements = $elements->merge($links);
+        $elements = $elements->merge($textBlocks);
+        $elements = $elements->merge($files);
 
         $this->elements = $elements->sortBy('order');
 

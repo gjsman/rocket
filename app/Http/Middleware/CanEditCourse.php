@@ -19,9 +19,24 @@ class CanEditCourse
     public function handle(Request $request, Closure $next): Response|RedirectResponse
     {
         $section = $request->route()->parameter('section');
-        $course = $section->course;
+        $element = $request->route()->parameter('element');
+
+        if($section) {
+            $course = $section->course;
+        } elseif($element) {
+            $course = $element->section->course;
+        } else {
+            return redirect()->route('dashboard');
+        }
+
         if (!$request->user()) return redirect()->route('shop.show', $course);
-        if ($request->user()->cannot('update', $course)) return redirect()->route('course', $course);
+
+        if($section) {
+            if ($request->user()->cannot('update', $section)) return redirect()->route('course', $course);
+        } elseif($element) {
+            if ($request->user()->cannot('update', $element)) return redirect()->route('course', $course);
+        }
+
         return $next($request);
     }
 }

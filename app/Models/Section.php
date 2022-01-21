@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Section extends Model
 {
     use HasFactory;
+    use \App\Traits\Element;
 
     protected $fillable = ['name', 'short_summary', 'summary', 'course_id', 'visible', 'order'];
 
@@ -21,5 +22,20 @@ class Section extends Model
     public function videos(): HasMany
     {
         return $this->hasMany(Video::class);
+    }
+
+    public function links(): HasMany
+    {
+        return $this->hasMany(Link::class);
+    }
+
+    public function textBlocks(): HasMany
+    {
+        return $this->hasMany(TextBlock::class);
+    }
+
+    public function files(): HasMany
+    {
+        return $this->hasMany(File::class);
     }
 }

@@ -6,10 +6,10 @@
     </x-slot>
     <div class="md:grid grid-cols-1 md:grid-cols-3 md:gap-6">
         <div class="col-span-1 h-fit">
-            <x-panel class="mb-8">
+            <x-panel class="mb-6">
                 <a class="text-green-700 font-semibold" href="{{ route('dashboard') }}">&larr; {{ __('Back to my courses') }}</a>
             </x-panel>
-            <x-panel class="mb-8">
+            <x-panel class="mb-6">
                 <x-slot name="header">
                     <x-header title="{{ $course->name }}" />
                 </x-slot>
@@ -52,13 +52,13 @@
                     <p class="text-xs font-bold">Violation of the above copyright policies may result in expulsion without a refund and/or legal action.</p>
                 </x-panel>
             @elseif($location === 'participants')
-                <x-panel class="mb-8">
+                <x-panel class="mb-6">
                     <x-slot name="header">
                         <x-header title="{{ __('Participants') }}" />
                     </x-slot>
                 </x-panel>
             @elseif($location === 'completion')
-                <x-panel class="mb-8">
+                <x-panel class="mb-6">
                     <x-slot name="header">
                         <x-header title="{{ __('Course Completion') }}" />
                     </x-slot>
@@ -67,21 +67,23 @@
                     @endif
                 </x-panel>
             @elseif($location === 'instructorAccess')
-                <x-panel class="mb-8">
+                <x-panel class="mb-6">
                     <x-slot name="header">
                         <x-header title="{{ __('Instructor Access') }}" />
                     </x-slot>
-                    {!! $course->instructor_access_link !!}
+                    <div class="prose">
+                        {!! $course->instructor_access_link !!}
+                    </div>
                 </x-panel>
             @elseif($location === 'addSection')
-                <x-panel class="mb-8">
+                <x-panel class="mb-6">
                     <x-slot name="header">
                         <x-header title="{{ __('Add a section') }}" />
                     </x-slot>
                     @livewire('edit-section', ['course' => $course])
                 </x-panel>
             @else
-                <x-panel class="mb-8">
+                <x-panel class="mb-6">
                     <x-slot name="header">
                         <x-header>
                             <x-slot name="title">
@@ -113,6 +115,15 @@
                     </div>
                 </x-panel>
                 @livewire('elements', ['section' => $section])
+                @can('update', $section)
+                    <x-panel>
+                        <span class="mr-4">{{ __('Add') }}</span>
+                        <x-secondary-button href="{{ route('video.create', ['section' => $section]) }}">{{ __('Video') }}</x-secondary-button>
+                        <x-secondary-button href="{{ route('link.create', ['section' => $section]) }}">{{ __('Link') }}</x-secondary-button>
+                        <x-secondary-button href="{{ route('textblock.create', ['section' => $section]) }}">{{ __('Text Block') }}</x-secondary-button>
+                        <x-secondary-button href="{{ route('file.create', ['section' => $section]) }}">{{ __('File') }}</x-secondary-button>
+                    </x-panel>
+                @endcan
             @endif
         </div>
     </div>

@@ -2957,6 +2957,11 @@ select{
   margin-bottom: -0.5rem;
 }
 
+.mx-1{
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+}
+
 .ml-3{
   margin-left: 0.75rem;
 }
@@ -3187,6 +3192,10 @@ select{
 
 .mr-0{
   margin-right: 0px;
+}
+
+.mr-4{
+  margin-right: 1rem;
 }
 
 .block{
@@ -3624,6 +3633,10 @@ select{
 
 .cursor-not-allowed{
   cursor: not-allowed;
+}
+
+.cursor-move{
+  cursor: move;
 }
 
 .select-none{
