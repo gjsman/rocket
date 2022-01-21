@@ -22,6 +22,7 @@ class EditLink extends Component implements Forms\Contracts\HasForms
                 'name' => $this->element->name,
                 'summary' => $this->element->summary,
                 'url' => $this->element->url,
+                'visible' => $this->element->visible,
             ]);
         } else {
             $this->form->fill();
@@ -34,6 +35,7 @@ class EditLink extends Component implements Forms\Contracts\HasForms
             Forms\Components\TextInput::make('name')->required(),
             Forms\Components\RichEditor::make('summary'),
             Forms\Components\TextInput::make('url')->label('URL')->required(),
+            Forms\Components\Checkbox::make('visible')->default(true),
         ];
     }
 

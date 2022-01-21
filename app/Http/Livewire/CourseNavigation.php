@@ -19,11 +19,11 @@ class CourseNavigation extends Component
 
     public function render()
     {
-        $sections = $this->course->sections;
-        if(Auth::user()->cannot('update', $this->course) || student()) {
-            $sections->where('visible', true);
+        if(Auth::user()->can('update', $this->course)) {
+            $this->sections = $this->course->sections->sortBy('order');
+        } else {
+            $this->sections = $this->course->sections->where('visible', true)->sortBy('order');
         }
-        $this->sections = $sections->sortBy('order');
         return view('livewire.course-navigation');
     }
 

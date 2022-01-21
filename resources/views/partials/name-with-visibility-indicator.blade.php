@@ -1,3 +1,3 @@
-<span @if(!$model->visible) class="text-decoration-line-through" @endif>
+<span @if(!$model->visible) class="line-through" @endif>
     {{ $model->name }}
 </span>

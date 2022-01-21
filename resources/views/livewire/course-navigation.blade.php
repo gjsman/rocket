@@ -29,7 +29,7 @@
                             @livewire('checkoff', ['model' => $section], key('CHK-C-'.get_class($section).'-E-'.$section->id))
                         </span>
                     @endif
-                    {{ $section->name }}
+                    @include('partials/name-with-visibility-indicator', ['model' => $section])
                 </x-sidebar-item>
             </li>
         @endforeach

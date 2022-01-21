@@ -22,6 +22,7 @@ class EditFile extends Component implements Forms\Contracts\HasForms
                 'name' => $this->element->name,
                 'summary' => $this->element->summary,
                 'file' => $this->element->file,
+                'visible' => $this->element->visible,
             ]);
         } else {
             $this->form->fill();
@@ -33,7 +34,8 @@ class EditFile extends Component implements Forms\Contracts\HasForms
         return [
             Forms\Components\TextInput::make('name')->required(),
             Forms\Components\RichEditor::make('summary'),
-            FileUpload::make('file')
+            FileUpload::make('file'),
+            Forms\Components\Checkbox::make('visible')->default(true),
         ];
     }
 

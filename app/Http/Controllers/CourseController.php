@@ -23,6 +23,7 @@ class CourseController extends Controller
         if(is_numeric($location)) {
             $section = Section::where('id', $location)->where('course_id', $course->id)->first();
             if(!$section) return redirect()->route('course.location', ['course' => $course, 'location' => 'information']);
+            if(Auth::user()->cannot('view', $section)) return redirect()->route('course.location', ['course' => $course, 'location' => 'information']);
         }
         return view('course.index', ['course' => $course, 'location' => $location, 'section' => $section]);
     }

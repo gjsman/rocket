@@ -23,6 +23,7 @@ class EditSection extends Component implements Forms\Contracts\HasForms
             $this->form->fill([
                 'name' => $this->section->name,
                 'summary' => $this->section->summary,
+                'visible' => $this->section->visible,
             ]);
         } else {
             $this->form->fill();
@@ -34,6 +35,7 @@ class EditSection extends Component implements Forms\Contracts\HasForms
         return [
             Forms\Components\TextInput::make('name')->required(),
             Forms\Components\RichEditor::make('summary'),
+            Forms\Components\Checkbox::make('visible')->default(true),
         ];
     }
 

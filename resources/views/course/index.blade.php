@@ -87,7 +87,7 @@
                     <x-slot name="header">
                         <x-header>
                             <x-slot name="title">
-                                {{ $section->name }}
+                                @include('partials/name-with-visibility-indicator', ['model' => $section])
                             </x-slot>
                             @can('update', $section)
                                 <x-dropdown align="right" width="48">

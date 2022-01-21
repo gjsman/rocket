@@ -20,6 +20,7 @@ class EditTextBlock extends Component implements Forms\Contracts\HasForms
             $this->form->fill([
                 'name' => $this->element->name,
                 'summary' => $this->element->summary,
+                'visible' => $this->element->visible,
             ]);
         } else {
             $this->form->fill();
@@ -31,6 +32,7 @@ class EditTextBlock extends Component implements Forms\Contracts\HasForms
         return [
             Forms\Components\TextInput::make('name')->required(),
             Forms\Components\RichEditor::make('summary'),
+            Forms\Components\Checkbox::make('visible')->default(true),
         ];
     }
 

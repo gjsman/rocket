@@ -66,7 +66,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/link/{element}', [LinkController::class, 'show'])->name('link');
         Route::get('/file/{element}', [FileController::class, 'show'])->name('file');
         Route::get('/book/{element}', [BookController::class, 'show'])->name('book');
-        Route::get('/book/{element}/{location}', [BookController::class, 'location'])->name('book.location');
     });
 
     Route::middleware(['canEditCourse'])->group(function () {
