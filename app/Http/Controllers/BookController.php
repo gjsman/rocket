@@ -19,9 +19,9 @@ class BookController extends Controller
         return view('course.edit-element', ['section' => $section, 'class' => Book::class]);
     }
 
-    public function show(Book $element): RedirectResponse
+    public function show(Book $element): Factory|View|Application
     {
-        dd('Not implemented');
+        return view('book.show', ['element' => $element]);
     }
 
     public function edit(Book $element): Factory|View|Application

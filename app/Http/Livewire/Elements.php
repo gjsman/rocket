@@ -26,6 +26,7 @@ class Elements extends Component
             $books = $this->section->books;
             $assignments = $this->section->assignments;
             $quizzes = $this->section->quizzes;
+            $forums = $this->section->forums;
         } else {
             $videos = $this->section->videos->where('visible', true);
             $links = $this->section->links->where('visible', true);
@@ -34,6 +35,7 @@ class Elements extends Component
             $books = $this->section->books->where('visible', true);
             $assignments = $this->section->assignments->where('visible', true);
             $quizzes = $this->section->quizzes->where('visible', true);
+            $forums = $this->sections->forums->where('visible', true);
         }
 
         $elements = new Collection;
@@ -44,6 +46,7 @@ class Elements extends Component
         $elements = $elements->merge($books);
         $elements = $elements->merge($assignments);
         $elements = $elements->merge($quizzes);
+        $elements = $elements->merge($forums);
 
         $this->elements = $elements->sortBy('order');
 

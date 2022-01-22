@@ -18,9 +18,9 @@ class AssignmentController extends Controller
         return view('course.edit-element', ['section' => $section, 'class' => Assignment::class]);
     }
 
-    public function show(Assignment $element): RedirectResponse
+    public function show(Assignment $element): Factory|View|Application
     {
-        dd('Not implemented');
+        return view('assignment.show', ['element' => $element]);
     }
 
     public function edit(Assignment $element): Factory|View|Application

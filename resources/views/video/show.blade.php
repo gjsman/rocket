@@ -1,7 +1,5 @@
 <x-app-layout>
-    <x-panel class="mb-8">
-        <a class="text-green-700 font-semibold" href="{{ \Illuminate\Support\Facades\URL::previous() }}">&larr; {{ __('Back to course') }}</a>
-    </x-panel>
+    <x-element-back-button :element="$element" />
     <x-panel class="mb-8">
         @if(preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $element->url, $match))
             <div class="w-100 h-100">

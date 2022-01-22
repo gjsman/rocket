@@ -6,6 +6,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ElementController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\ForumController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\LinkController;
 use App\Http\Controllers\QuizController;
@@ -82,6 +83,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/book/{element}', [BookController::class, 'show'])->name('book');
         Route::get('/assignment/{element}', [AssignmentController::class, 'show'])->name('assignment');
         Route::get('/quiz/{element}', [QuizController::class, 'show'])->name('quiz');
+        Route::get('/forum/{element}', [ForumController::class, 'show'])->name('forum');
     });
 
     Route::middleware(['canEdit'])->group(function () {
@@ -123,6 +125,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/quiz/create/{section}', [QuizController::class, 'create'])->name('quiz.create');
         Route::get('/quiz/{element}/edit', [QuizController::class, 'edit'])->name('quiz.edit');
         Route::get('/quiz/{element}/delete', [QuizController::class, 'delete'])->name('quiz.delete');
+
+        /** Forums */
+        Route::get('/forum/create/{section}', [ForumController::class, 'create'])->name('forum.create');
+        Route::get('/forum/{element}/edit', [ForumController::class, 'edit'])->name('forum.edit');
+        Route::get('/forum/{element}/delete', [ForumController::class, 'delete'])->name('forum.delete');
     });
 });
 
