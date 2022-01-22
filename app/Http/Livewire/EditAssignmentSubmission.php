@@ -33,7 +33,17 @@ class EditAssignmentSubmission extends Component implements Forms\Contracts\HasF
     protected function getFormSchema(): array
     {
         return [
-            Forms\Components\FileUpload::make('file')->required(),
+            Forms\Components\FileUpload::make('file')->acceptedFileTypes([
+                'application/pdf',
+                'application/msword',
+                'image/jpeg',
+                'image/png',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                'application/vnd.ms-excel',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'application/vnd.ms-powerpoint',
+                'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+            ])->required()->helperText('Accepted Files: .doc, .docx, .xls, .xlsx, .ppt, .pptx, .pdf, .jpg, .jpeg, .png')
         ];
     }
 
