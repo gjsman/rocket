@@ -58,7 +58,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     });
 
-    Route::middleware(['canViewCourse'])->group(function () {
+    Route::middleware(['canView'])->group(function () {
         Route::get('/course/{course}', [CourseController::class, 'index'])->name('course');
         Route::get('/course/{course}/{location}', [CourseController::class, 'location'])->name('course.location');
 
@@ -68,7 +68,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/book/{element}', [BookController::class, 'show'])->name('book');
     });
 
-    Route::middleware(['canEditCourse'])->group(function () {
+    Route::middleware(['canEdit'])->group(function () {
         Route::get('/section/edit/{section}', [CourseController::class, 'editSection'])->name('section.edit');
         Route::get('/section/delete/{section}', [CourseController::class, 'deleteSection'])->name('section.delete');
 

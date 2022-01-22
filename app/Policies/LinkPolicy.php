@@ -37,6 +37,7 @@ class LinkPolicy
             if($user->id === $link->section->course->instructor_id) return true;
         } else {
             if(!$link->visible) return false;
+            if(!student()->can('view', $link->section)) return false;
             if(student()->enrolled($link->section->course)) return true;
         }
         return false;
@@ -67,7 +68,7 @@ class LinkPolicy
      */
     public function update(User $user, Link $link): Response|bool
     {
-        return $user->can('update', $link->section->course);
+        return $user->can('update', $link->section);
     }
 
     /**
@@ -79,7 +80,7 @@ class LinkPolicy
      */
     public function delete(User $user, Link $link): Response|bool
     {
-        return $user->can('update', $link->section->course);
+        return $user->can('update', $link->section);
     }
 
     /**
@@ -91,7 +92,7 @@ class LinkPolicy
      */
     public function restore(User $user, Link $link): Response|bool
     {
-        return $user->can('update', $link->section->course);
+        return $user->can('update', $link->section);
     }
 
     /**
@@ -103,6 +104,6 @@ class LinkPolicy
      */
     public function forceDelete(User $user, Link $link): Response|bool
     {
-        return $user->can('update', $link->section->course);
+        return $user->can('update', $link->section);
     }
 }

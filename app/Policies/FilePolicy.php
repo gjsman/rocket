@@ -37,6 +37,7 @@ class FilePolicy
             if($user->id === $file->section->course->instructor_id) return true;
         } else {
             if(!$file->visible) return false;
+            if(!student()->can('view', $file->section)) return false;
             if(student()->enrolled($file->section->course)) return true;
         }
         return false;
@@ -67,7 +68,7 @@ class FilePolicy
      */
     public function update(User $user, File $file): Response|bool
     {
-        return $user->can('update', $file->section->course);
+        return $user->can('update', $file->section);
     }
 
     /**
@@ -79,7 +80,7 @@ class FilePolicy
      */
     public function delete(User $user, File $file): Response|bool
     {
-        return $user->can('update', $file->section->course);
+        return $user->can('update', $file->section);
     }
 
     /**
@@ -91,7 +92,7 @@ class FilePolicy
      */
     public function restore(User $user, File $file): Response|bool
     {
-        return $user->can('update', $file->section->course);
+        return $user->can('update', $file->section);
     }
 
     /**
@@ -103,6 +104,6 @@ class FilePolicy
      */
     public function forceDelete(User $user, File $file): Response|bool
     {
-        return $user->can('update', $file->section->course);
+        return $user->can('update', $file->section);
     }
 }

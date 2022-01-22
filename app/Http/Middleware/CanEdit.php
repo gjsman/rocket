@@ -7,7 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class CanEditCourse
+class CanEdit
 {
     /**
      * Handle an incoming request.

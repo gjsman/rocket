@@ -37,6 +37,7 @@ class TextBlockPolicy
             if($user->id === $textBlock->section->course->instructor_id) return true;
         } else {
             if(!$textBlock->visible) return false;
+            if(!student()->can('view', $textBlock->section)) return false;
             if(student()->enrolled($textBlock->section->course)) return true;
         }
         return false;
@@ -67,7 +68,7 @@ class TextBlockPolicy
      */
     public function update(User $user, TextBlock $textBlock): Response|bool
     {
-        return $user->can('update', $textBlock->section->course);
+        return $user->can('update', $textBlock->section);
     }
 
     /**
@@ -79,7 +80,7 @@ class TextBlockPolicy
      */
     public function delete(User $user, TextBlock $textBlock): Response|bool
     {
-        return $user->can('update', $textBlock->section->course);
+        return $user->can('update', $textBlock->section);
     }
 
     /**
@@ -91,7 +92,7 @@ class TextBlockPolicy
      */
     public function restore(User $user, TextBlock $textBlock): Response|bool
     {
-        return $user->can('update', $textBlock->section->course);
+        return $user->can('update', $textBlock->section);
     }
 
     /**
@@ -103,6 +104,6 @@ class TextBlockPolicy
      */
     public function forceDelete(User $user, TextBlock $textBlock): Response|bool
     {
-        return $user->can('update', $textBlock->section->course);
+        return $user->can('update', $textBlock->section);
     }
 }

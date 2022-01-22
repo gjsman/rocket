@@ -37,6 +37,7 @@ class BookPolicy
             if($user->id === $book->section->course->instructor_id) return true;
         } else {
             if(!$book->visible) return false;
+            if(!student()->can('view', $book->section)) return false;
             if(student()->enrolled($book->section->course)) return true;
         }
         return false;
@@ -67,7 +68,7 @@ class BookPolicy
      */
     public function update(User $user, Book $book): Response|bool
     {
-        return $user->can('update', $book->section->course);
+        return $user->can('update', $book->section);
     }
 
     /**
@@ -79,7 +80,7 @@ class BookPolicy
      */
     public function delete(User $user, Book $book): Response|bool
     {
-        return $user->can('update', $book->section->course);
+        return $user->can('update', $book->section);
     }
 
     /**
@@ -91,7 +92,7 @@ class BookPolicy
      */
     public function restore(User $user, Book $book): Response|bool
     {
-        return $user->can('update', $book->section->course);
+        return $user->can('update', $book->section);
     }
 
     /**
@@ -103,6 +104,6 @@ class BookPolicy
      */
     public function forceDelete(User $user, Book $book): Response|bool
     {
-        return $user->can('update', $book->section->course);
+        return $user->can('update', $book->section);
     }
 }

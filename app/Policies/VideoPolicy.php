@@ -37,6 +37,7 @@ class VideoPolicy
             if($user->id === $video->section->course->instructor_id) return true;
         } else {
             if(!$video->visible) return false;
+            if(!student()->can('view', $video->section)) return false;
             if(student()->enrolled($video->section->course)) return true;
         }
         return false;
@@ -67,7 +68,7 @@ class VideoPolicy
      */
     public function update(User $user, Video $video): Response|bool
     {
-        return $user->can('update', $video->section->course);
+        return $user->can('update', $video->section);
     }
 
     /**
@@ -79,7 +80,7 @@ class VideoPolicy
      */
     public function delete(User $user, Video $video): Response|bool
     {
-        return $user->can('update', $video->section->course);
+        return $user->can('update', $video->section);
     }
 
     /**
@@ -91,7 +92,7 @@ class VideoPolicy
      */
     public function restore(User $user, Video $video): Response|bool
     {
-        return $user->can('update', $video->section->course);
+        return $user->can('update', $video->section);
     }
 
     /**
@@ -103,6 +104,6 @@ class VideoPolicy
      */
     public function forceDelete(User $user, Video $video): Response|bool
     {
-        return $user->can('update', $video->section->course);
+        return $user->can('update', $video->section);
     }
 }
