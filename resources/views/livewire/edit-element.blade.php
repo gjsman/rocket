@@ -14,13 +14,21 @@
             <div class="float-right">
                 <div class="flex space-x-2">
                     @if($element)
-                        <x-secondary-button href="{{ route('course.location', ['course' => $element->section->course, 'location' => $element->section->id]) }}">
-                            {{ __('Cancel') }}
-                        </x-secondary-button>
+                        @if(isset($element->section))
+                            <x-secondary-button href="{{ route('course.location', ['course' => $element->section->course, 'location' => $element->section->id]) }}">
+                                {{ __('Cancel') }}
+                            </x-secondary-button>
+                        @else
+                            <x-secondary-button href="{{ route(strtolower(class_basename($element->parent)).'.location', ['element' => $element->parent, 'location' => $element->id]) }}">
+                                {{ __('Cancel') }}
+                            </x-secondary-button>
+                        @endif
                     @else
-                        <x-secondary-button href="{{ route('course', ['course' => $section->course]) }}">
-                            {{ __('Cancel') }}
-                        </x-secondary-button>
+                        @if(isset($element->section))
+                            <x-secondary-button href="{{ route('course', ['course' => $section->course]) }}">
+                                {{ __('Cancel') }}
+                            </x-secondary-button>
+                        @endif
                     @endif
                     <x-button type="submit">
                         {{ __('Save') }}

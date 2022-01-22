@@ -25,7 +25,11 @@ class CanEdit
         if ($section) {
             $course = $section->course;
         } elseif ($element) {
-            $course = $element->section->course;
+            try {
+                $course = $element->section->course;
+            } catch (\ErrorException) {
+                $course = $element->parent->section->course;
+            }
         } elseif ($course) {
             // $course = $course already, just don't go through the else
         } else {

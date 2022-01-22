@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BookPageController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ElementController;
 use App\Http\Controllers\FileController;
@@ -115,6 +116,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/book/create/{section}', [BookController::class, 'create'])->name('book.create');
         Route::get('/book/{element}/edit', [BookController::class, 'edit'])->name('book.edit');
         Route::get('/book/{element}/delete', [BookController::class, 'delete'])->name('book.delete');
+        Route::get('/book/{element}/{location}', [BookController::class, 'location'])->name('book.location');
+
+        /** Book Pages */
+        Route::get('/bookPage/edit/{element}', [BookPageController::class, 'edit'])->name('bookpage.edit');
+        Route::get('/bookPage/delete/{element}', [BookPageController::class, 'delete'])->name('bookpage.delete');
 
         /** Assignments */
         Route::get('/assignment/create/{section}', [AssignmentController::class, 'create'])->name('assignment.create');

@@ -110,6 +110,13 @@
             @endif
         @endif
     @endif
+    @if(strtolower(class_basename($element)) === 'forum')
+        @if($element->open == false)
+            <x-alert-warning title="{{ __('Forum closed') }}" class="mb-4">
+                {{ __('You can read forum posts, but cannot reply or create new posts.') }}
+            </x-alert-warning>
+        @endif
+    @endif
     <div class="prose">
         {!! $element->summary !!}
     </div>

@@ -2,26 +2,29 @@
 
 namespace App\Models;
 
-use App\Traits\Element;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Book extends Model
+class BookPage extends Model
 {
     use HasFactory;
-    use Element;
 
     protected $fillable = [
         'name',
         'summary',
         'order',
-        'section_id',
+        'book_id',
         'visible'
     ];
 
-    public function pages(): HasMany
+    public function book(): BelongsTo
     {
-        return $this->hasMany(BookPage::class);
+        return $this->belongsTo(Book::class);
+    }
+
+    public function parent(): BelongsTo
+    {
+        return $this->book();
     }
 }

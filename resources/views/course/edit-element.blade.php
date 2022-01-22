@@ -21,8 +21,10 @@
                 @if(isset($element))
                     @if(strtolower(class_basename($element)) !== 'course')
                         <ul>
-                            <li>{{ __('Section: ').$element->section->name }}</li>
-                            <li>{{ __('Course: ').$element->section->course->name }}</li>
+                            @if(isset($element->section))
+                                <li>{{ __('Section: ').$element->section->name }}</li>
+                                <li>{{ __('Course: ').$element->section->course->name }}</li>
+                            @endif
                         </ul>
                     @endif
                 @endif
@@ -36,6 +38,8 @@
             }
             if($editorName === 'edit-textblock') {
                 $editorName = 'edit-text-block';
+            } elseif($editorName === 'edit-bookpage') {
+                $editorName = 'edit-book-page';
             }
         @endphp
         @if(isset($element))
