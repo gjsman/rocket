@@ -3,7 +3,7 @@
     <x-sidebar-item href="{{ route('course.location', ['course' => $course, 'location' => 'information']) }}" :active="$location === 'information'">
         {{ __('General Information') }}
     </x-sidebar-item>
-    @if($course->instructor_access_link)
+    @if($course->show_instructor_access)
         <x-sidebar-item href="{{ route('course.location', ['course' => $course, 'location' => 'instructorAccess']) }}" :active="$location === 'instructorAccess'">
             {{ __('Instructor Access') }}
         </x-sidebar-item>

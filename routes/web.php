@@ -1,15 +1,19 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\ElementController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\LinkController;
+use App\Http\Controllers\QuizController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TextBlockController;
 use App\Http\Controllers\VideoController;
+use App\Models\Assignment;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +37,7 @@ Route::get('/dashboard', function () {
 
 /** Only logged in and verified users can see these routes. */
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+
     Route::get('/student/unset', [StudentController::class, 'unset'])->name('student.unset');
     Route::get('/student/{student}', [StudentController::class, 'set'])->name('student.set');
 
@@ -57,40 +62,65 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::middleware(['admin'])->group(function () {
 
     });
+    Route::middleware(['canEdit'])->group(function () {
+        Route::get('/course/{course}/edit', [CourseController::class, 'edit'])->name('course.edit');
+        Route::get('/course/{course}/{class}/{id}', [ElementController::class, 'move'])->name('element.move');
+        Route::post('/course/{course}/{class}/{id}', [ElementController::class, 'move'])->name('element.move');
+    });
 
     Route::middleware(['canView'])->group(function () {
+        /** Course */
         Route::get('/course/{course}', [CourseController::class, 'index'])->name('course');
         Route::get('/course/{course}/{location}', [CourseController::class, 'location'])->name('course.location');
 
+        /** Elements */
         Route::get('/video/{element}', [VideoController::class, 'show'])->name('video');
         Route::get('/link/{element}', [LinkController::class, 'show'])->name('link');
         Route::get('/file/{element}', [FileController::class, 'show'])->name('file');
         Route::get('/book/{element}', [BookController::class, 'show'])->name('book');
+        Route::get('/assignment/{element}', [AssignmentController::class, 'show'])->name('assignment');
+        Route::get('/quiz/{element}', [QuizController::class, 'show'])->name('quiz');
     });
 
     Route::middleware(['canEdit'])->group(function () {
+        /** Sections */
         Route::get('/section/edit/{section}', [CourseController::class, 'editSection'])->name('section.edit');
         Route::get('/section/delete/{section}', [CourseController::class, 'deleteSection'])->name('section.delete');
 
+        /** Videos */
         Route::get('/video/create/{section}', [VideoController::class, 'create'])->name('video.create');
         Route::get('/video/{element}/edit', [VideoController::class, 'edit'])->name('video.edit');
         Route::get('/video/{element}/delete', [VideoController::class, 'delete'])->name('video.delete');
 
+        /** Links */
         Route::get('/link/create/{section}', [LinkController::class, 'create'])->name('link.create');
         Route::get('/link/{element}/edit', [LinkController::class, 'edit'])->name('link.edit');
         Route::get('/link/{element}/delete', [LinkController::class, 'delete'])->name('link.delete');
 
+        /** Text Blocks */
         Route::get('/textBlock/create/{section}', [TextBlockController::class, 'create'])->name('textblock.create');
         Route::get('/textBlock/{element}/edit', [TextBlockController::class, 'edit'])->name('textblock.edit');
         Route::get('/textBlock/{element}/delete', [TextBlockController::class, 'delete'])->name('textblock.delete');
 
+        /** Files */
         Route::get('/file/create/{section}', [FileController::class, 'create'])->name('file.create');
         Route::get('/file/{element}/edit', [FileController::class, 'edit'])->name('file.edit');
         Route::get('/file/{element}/delete', [FileController::class, 'delete'])->name('file.delete');
 
+        /** Books */
         Route::get('/book/create/{section}', [BookController::class, 'create'])->name('book.create');
         Route::get('/book/{element}/edit', [BookController::class, 'edit'])->name('book.edit');
         Route::get('/book/{element}/delete', [BookController::class, 'delete'])->name('book.delete');
+
+        /** Assignments */
+        Route::get('/assignment/create/{section}', [AssignmentController::class, 'create'])->name('assignment.create');
+        Route::get('/assignment/{element}/edit', [AssignmentController::class, 'edit'])->name('assignment.edit');
+        Route::get('/assignment/{element}/delete', [AssignmentController::class, 'delete'])->name('assignment.delete');
+
+        /** Quizzes */
+        Route::get('/quiz/create/{section}', [QuizController::class, 'create'])->name('quiz.create');
+        Route::get('/quiz/{element}/edit', [QuizController::class, 'edit'])->name('quiz.edit');
+        Route::get('/quiz/{element}/delete', [QuizController::class, 'delete'])->name('quiz.delete');
     });
 });
 

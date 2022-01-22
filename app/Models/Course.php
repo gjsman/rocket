@@ -12,7 +12,25 @@ class Course extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'image', 'summary', 'short_summary', 'category_id', 'instructor_id', 'type', 'difficulty', 'seats', 'prerequisite', 'instructor_access_link', 'start_time', 'end_time', 'counterpart_id', 'price', 'visible'];
+    protected $fillable = [
+        'name',
+        'image',
+        'summary',
+        'short_summary',
+        'category_id',
+        'instructor_id',
+        'type',
+        'difficulty',
+        'seats',
+        'prerequisite',
+        'instructor_access_link',
+        'show_instructor_access',
+        'start_time',
+        'end_time',
+        'counterpart_id',
+        'price',
+        'visible'
+    ];
 
     public function instructor(): BelongsTo
     {

@@ -24,12 +24,16 @@ class Elements extends Component
             $textBlocks = $this->section->textBlocks;
             $files = $this->section->files;
             $books = $this->section->books;
+            $assignments = $this->section->assignments;
+            $quizzes = $this->section->quizzes;
         } else {
             $videos = $this->section->videos->where('visible', true);
             $links = $this->section->links->where('visible', true);
             $textBlocks = $this->section->textBlocks->where('visible', true);
             $files = $this->section->files->where('visible', true);
             $books = $this->section->books->where('visible', true);
+            $assignments = $this->section->assignments->where('visible', true);
+            $quizzes = $this->section->quizzes->where('visible', true);
         }
 
         $elements = new Collection;
@@ -38,6 +42,8 @@ class Elements extends Component
         $elements = $elements->merge($textBlocks);
         $elements = $elements->merge($files);
         $elements = $elements->merge($books);
+        $elements = $elements->merge($assignments);
+        $elements = $elements->merge($quizzes);
 
         $this->elements = $elements->sortBy('order');
 

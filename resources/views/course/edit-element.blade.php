@@ -19,10 +19,12 @@
                     @endif
                 </x-slot>
                 @if(isset($element))
-                    <ul>
-                        <li>{{ __('Section: ').$element->section->name }}</li>
-                        <li>{{ __('Course: ').$element->section->course->name }}</li>
-                    </ul>
+                    @if(strtolower(class_basename($element)) !== 'course')
+                        <ul>
+                            <li>{{ __('Section: ').$element->section->name }}</li>
+                            <li>{{ __('Course: ').$element->section->course->name }}</li>
+                        </ul>
+                    @endif
                 @endif
             </x-header>
         </x-slot>

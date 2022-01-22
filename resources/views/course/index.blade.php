@@ -20,7 +20,30 @@
             @if($location === 'information')
                 <x-panel class="mb-8">
                     <x-slot name="header">
-                        <x-header title="{{ $course->name }}" />
+                        <x-header>
+                            <x-slot name="title">
+                                @include('partials/name-with-visibility-indicator', ['model' => $course])
+                            </x-slot>
+                            @can('update', $course)
+                                <x-dropdown align="right" width="48">
+                                    <x-slot name="trigger">
+                                        <span class="inline-flex rounded-md">
+                                           <x-secondary-button type="button">
+                                                {{ __('Options') }}
+                                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                </svg>
+                                            </x-secondary-button>
+                                        </span>
+                                    </x-slot>
+                                    <x-slot name="content">
+                                        <x-dropdown-link href="{{ route('course.edit', ['course' => $course]) }}">
+                                            {{ __('Edit course') }}
+                                        </x-dropdown-link>
+                                    </x-slot>
+                                </x-dropdown>
+                            @endcan
+                        </x-header>
                     </x-slot>
                     <div class="prose">
                         {!! $course->summary !!}
@@ -69,7 +92,30 @@
             @elseif($location === 'instructorAccess')
                 <x-panel class="mb-6">
                     <x-slot name="header">
-                        <x-header title="{{ __('Instructor Access') }}" />
+                        <x-header>
+                            <x-slot name="title">
+                                {{ __('Instructor Access') }}
+                            </x-slot>
+                            @can('update', $course)
+                                <x-dropdown align="right" width="48">
+                                    <x-slot name="trigger">
+                                        <span class="inline-flex rounded-md">
+                                           <x-secondary-button type="button">
+                                                {{ __('Options') }}
+                                                <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                </svg>
+                                            </x-secondary-button>
+                                        </span>
+                                    </x-slot>
+                                    <x-slot name="content">
+                                        <x-dropdown-link href="{{ route('course.edit', ['course' => $course]) }}">
+                                            {{ __('Edit Instructor Access information') }}
+                                        </x-dropdown-link>
+                                    </x-slot>
+                                </x-dropdown>
+                            @endcan
+                        </x-header>
                     </x-slot>
                     <div class="prose">
                         {!! $course->instructor_access_link !!}
@@ -123,6 +169,8 @@
                         <x-secondary-button href="{{ route('textblock.create', ['section' => $section]) }}">{{ __('Text Block') }}</x-secondary-button>
                         <x-secondary-button href="{{ route('file.create', ['section' => $section]) }}">{{ __('File') }}</x-secondary-button>
                         <x-secondary-button href="{{ route('book.create', ['section' => $section]) }}">{{ __('Book') }}</x-secondary-button>
+                        <x-secondary-button href="{{ route('assignment.create', ['section' => $section]) }}">{{ __('Assignment') }}</x-secondary-button>
+                        <x-secondary-button href="{{ route('quiz.create', ['section' => $section]) }}">{{ __('Quiz') }}</x-secondary-button>
                     </x-panel>
                 @endcan
             @endif

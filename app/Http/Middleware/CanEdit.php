@@ -20,11 +20,14 @@ class CanEdit
     {
         $section = $request->route()->parameter('section');
         $element = $request->route()->parameter('element');
+        $course = $request->route()->parameter('course');
 
-        if($section) {
+        if ($section) {
             $course = $section->course;
-        } elseif($element) {
+        } elseif ($element) {
             $course = $element->section->course;
+        } elseif ($course) {
+            // $course = $course already, just don't go through the else
         } else {
             return redirect()->route('dashboard');
         }
@@ -35,6 +38,8 @@ class CanEdit
             if ($request->user()->cannot('update', $section)) return redirect()->route('course', $course);
         } elseif($element) {
             if ($request->user()->cannot('update', $element)) return redirect()->route('course', $course);
+        } elseif($course) {
+            if ($request->user()->cannot('update', $course)) return redirect()->route('course', $course);
         }
 
         return $next($request);

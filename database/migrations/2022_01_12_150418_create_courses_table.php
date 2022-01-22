@@ -31,6 +31,7 @@ class CreateCoursesTable extends Migration
             $table->integer('counterpart_id')->nullable();
             $table->integer('price')->nullable();
             $table->boolean('visible')->default(true);
+            $table->boolean('show_instructor_access')->default(false);
             $table->timestamps();
         });
     }

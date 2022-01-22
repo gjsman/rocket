@@ -108,6 +108,10 @@ class CourseController extends Controller
         return redirect()->route('course', $course);
     }
 
+    public function edit(Course $course) {
+        return view('course.edit-element', ['element' => $course]);
+    }
+
     public function editSection(Section $section): Factory|View|Application
     {
         return view('course.edit-section', ['section' => $section]);
