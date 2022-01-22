@@ -72,7 +72,7 @@
                             <x-dropdown-link href="{{ route('element.move', ['course' => $element->section->course, 'class' => class_basename($element), 'id' => $element->id]) }}">
                                 {{ __('Move') }}
                             </x-dropdown-link>
-                            <x-dropdown-link href="#">
+                            <x-dropdown-link href="{{ route('element.duplicate', ['course' => $element->section->course, 'class' => class_basename($element), 'id' => $element->id]) }}">
                                 {{ __('Duplicate') }}
                             </x-dropdown-link>
                             <x-dropdown-link href="#">

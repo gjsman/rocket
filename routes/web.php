@@ -64,8 +64,10 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     });
     Route::middleware(['canEdit'])->group(function () {
         Route::get('/course/{course}/edit', [CourseController::class, 'edit'])->name('course.edit');
-        Route::get('/course/{course}/{class}/{id}', [ElementController::class, 'move'])->name('element.move');
-        Route::post('/course/{course}/{class}/{id}', [ElementController::class, 'move'])->name('element.move');
+        Route::get('/course/move/{course}/{class}/{id}', [ElementController::class, 'move'])->name('element.move');
+        Route::post('/course/move/{course}/{class}/{id}', [ElementController::class, 'move'])->name('element.move');
+        Route::get('/course/duplicate/{course}/{class}/{id}', [ElementController::class, 'duplicate'])->name('element.duplicate');
+        Route::post('/course/duplicate/{course}/{class}/{id}', [ElementController::class, 'duplicate'])->name('element.duplicate');
     });
 
     Route::middleware(['canView'])->group(function () {
