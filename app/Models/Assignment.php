@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\Element;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Assignment extends Model
 {
@@ -25,4 +26,9 @@ class Assignment extends Model
     protected $casts = [
         'due' => 'datetime'
     ];
+
+    public function submissions(): HasMany
+    {
+        return $this->hasMany(AssignmentSubmission::class);
+    }
 }

@@ -3,11 +3,11 @@
         <div class="col-span-1 h-fit">
             <x-element-back-button :element="$element" />
             <x-panel class="mb-6">
-                <nav class="space-y-1" aria-label="Sidebar">
-                    <x-sidebar-item href="{{ route('assignment', ['element' => $element]) }}" :active="true">
+                <nav class="space-y-1" aria-label="{{ __('Sidebar') }}">
+                    <x-sidebar-item href="{{ route('assignment', ['element' => $element]) }}" :active="false">
                         {{ __('New Submission') }}
                     </x-sidebar-item>
-                    <x-sidebar-item href="{{ route('assignment.previous', ['element' => $element]) }}" :active="false">
+                    <x-sidebar-item href="{{ route('assignment.previous', ['element' => $element]) }}" :active="true">
                         {{ __('Previous Submissions') }}
                     </x-sidebar-item>
                     @can('update', $element)
@@ -21,9 +21,13 @@
         <div class="col-span-2 h-fit">
             <x-panel>
                 <x-slot name="header">
-                    <x-header title="{{ __('New Submission') }}" />
+                    <x-header title="{{ __('Previous Submissions') }}" />
                 </x-slot>
-                @livewire('edit-assignment-submission', ['assignment' => $element])
+                <nav class="space-y-1" aria-label="{{ __('Previous Submissions') }}">
+                    @foreach($submissions->sortByDesc('created_at') as $key => $submission)
+                        <x-sidebar-item href="{{ \Illuminate\Support\Facades\Storage::url($submission->file) }}">{{ __('Submission #').$key+1 }} {{ __(' from ').$submission->created_at->format('l, F jS, Y').__(' at ').$submission->created_at->format('H:i').__(' UTC') }}</x-sidebar-item>
+                    @endforeach
+                </nav>
             </x-panel>
         </div>
     </div>

@@ -10,6 +10,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AssignmentController extends Controller
 {
@@ -21,6 +22,21 @@ class AssignmentController extends Controller
     public function show(Assignment $element): Factory|View|Application
     {
         return view('assignment.show', ['element' => $element]);
+    }
+
+    public function showPrevious(Assignment $element): Factory|View|Application
+    {
+        if(student()) {
+            $submissions = $element->submissions->where('student_id', student());
+        } else {
+            $submissions = $element->submissions->where('user_id', Auth::id());
+        }
+        return view('assignment.previous', ['element' => $element, 'submissions' => $submissions]);
+    }
+
+    public function all(Assignment $element): Factory|View|Application
+    {
+        return view('assignment.all', ['element' => $element]);
     }
 
     public function edit(Assignment $element): Factory|View|Application
