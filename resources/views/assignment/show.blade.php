@@ -23,7 +23,35 @@
                 <x-slot name="header">
                     <x-header title="{{ __('New Submission') }}" />
                 </x-slot>
-                @livewire('edit-assignment-submission', ['assignment' => $element])
+                @if($element->due)
+                    @if($element->show_due_date)
+                        @if($element->due->isPast())
+                            <x-alert-warning title="{{ __('Due ').$element->due->diffForHumans().__(' on ').$element->due->format('l, F jS, Y').__(' at ').$element->due->format('H:i').__(' UTC') }}" class="mb-4">
+                                @if($element->allow_late_submissions)
+                                    {{ __('Late submissions are accepted with possible penalties.') }}
+                                @else
+                                    {{ __('Late submissions are not accepted without a waiver.') }}
+                                @endif
+                            </x-alert-warning>
+                            @if($element->allow_late_submissions)
+                                @livewire('edit-assignment-submission', ['assignment' => $element])
+                            @endif
+                        @else
+                            <x-alert-info title="{{ __('Due ').$element->due->diffForHumans().__(' on ').$element->due->format('l, F jS, Y').__(' at ').$element->due->format('H:i').__(' UTC') }}" class="mb-4">
+                                @if($element->allow_late_submissions)
+                                    {{ __('Late submissions are accepted with possible penalties.') }}
+                                @else
+                                    {{ __('Late submissions are not accepted without a waiver.') }}
+                                @endif
+                            </x-alert-info>
+                            @livewire('edit-assignment-submission', ['assignment' => $element])
+                        @endif
+                    @else
+                        @livewire('edit-assignment-submission', ['assignment' => $element])
+                    @endif
+                @else
+                    @livewire('edit-assignment-submission', ['assignment' => $element])
+                @endif
             </x-panel>
         </div>
     </div>
