@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Order;
 use Gloudemans\Shoppingcart\Exceptions\InvalidRowIDException;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class CartItem extends Component
@@ -16,7 +18,8 @@ class CartItem extends Component
         try {
             $item = Cart::get($this->rowId);
             $limit = min(array(
-                5,
+                3,
+                (3 - Order::where('user_id', Auth::id())->where('course_id', $item->model->id)->count()),
                 $item->model->seatsRemaining(),
             ));
             if($this->quantity === null) {

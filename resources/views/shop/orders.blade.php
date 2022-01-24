@@ -33,14 +33,22 @@
                                                     {{ $order->course->name }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                    {{ __('Unassigned') }}
+                                                    @if($order->assigned())
+                                                        {{ __('Assigned to ').$order->enrollment->student->name }}
+                                                    @else
+                                                        {{ __('Unassigned') }}
+                                                    @endif
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                                     {{ $order->created_at->format('m/d/Y') }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                     <a href="{{ url($order->receipt_url) }}" class="text-green-700 hover:text-green-800 mr-4" style="text-decoration: none;">{{ __('Receipt') }}</a>
-                                                    <a href="#" class="text-green-700 hover:text-green-800" style="text-decoration: none;">{{ __('Something') }}</a>
+                                                    @if($order->assigned())
+                                                        <a href="#" class="text-green-700 hover:text-green-800" style="text-decoration: none;">{{ __('Unassign') }}</a>
+                                                    @else
+                                                        <x-button href="#">{{ __('Assign to student') }}</x-button>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach

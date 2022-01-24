@@ -52,4 +52,12 @@ class Order extends Model
     public function enrollment(): HasOne {
         return $this->hasOne(Enrollment::class);
     }
+
+    /**
+     * @return bool
+     */
+    public function assigned(): bool
+    {
+        return $this->enrollment()->exists();
+    }
 }

@@ -12,7 +12,7 @@
                         </x-slot>
                     </x-header>
                 </x-slot>
-                <x-alert-info class="mb-6" title="{{ __('You cannot order more than 5 seats of a course, or more seats than are remaining.') }}">
+                <x-alert-info class="mb-6" title="{{ __('You cannot order more than 3 seats of a course, or more seats than are remaining.') }}">
                     {{ __('If a course was removed automatically from your cart, the remaining seats were purchased after you added the course to your cart. Adding a course to your cart does not guarantee a seat.') }}
                 </x-alert-info>
                 <div class="flex flex-col">

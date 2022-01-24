@@ -205,7 +205,7 @@ class ShopController extends Controller
 
     public function orders(): Factory|View|Application
     {
-        $orders = Auth::user()->orders;
+        $orders = Auth::user()->orders->sortByDesc('id');
         return view('shop.orders', ['orders' => $orders]);
     }
 }
