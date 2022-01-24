@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use Gloudemans\Shoppingcart\Exceptions\InvalidRowIDException;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Livewire\Component;
 
 class CartItem extends Component
@@ -13,22 +14,38 @@ class CartItem extends Component
     public function render()
     {
         try {
-            $item = \Gloudemans\Shoppingcart\Facades\Cart::get($this->rowId);
+            $item = Cart::get($this->rowId);
+            $limit = min(array(
+                5,
+                $item->model->seatsRemaining(),
+            ));
             if($this->quantity === null) {
-                $this->quantity = $item->qty;
+                if((int) $item->qty <= $limit) {
+                    $this->quantity = $item->qty;
+                } elseif($limit > 0) {
+                    $this->quantity = $limit;
+                } else {
+                    $this->quantity = 0;
+                    $this->deleteCartItem($item->rowId);
+                    unset($item);
+                }
             } else {
-                if((int) $this->quantity <= 5) {
+                if((int) $this->quantity <= $limit) {
                     if((int) $this->quantity > 0) {
-                        \Gloudemans\Shoppingcart\Facades\Cart::update($this->rowId, $this->quantity);
+                        Cart::update($this->rowId, $this->quantity);
                     } else {
                         $this->quantity = 1;
                     }
                 } else {
-                    $this->quantity = 5;
+                    $this->quantity = $limit;
                 }
             }
             $this->emit('recalculate');
-            return view('livewire.cart-item', ['item' => $item]);
+            if(isset($item)) {
+                return view('livewire.cart-item', ['item' => $item]);
+            } else {
+                return view('livewire.cart-item');
+            }
         } catch (InvalidRowIDException $e) {
             return view('livewire.cart-item');
         }
@@ -36,7 +53,7 @@ class CartItem extends Component
 
     public function deleteCartItem(string $item)
     {
-        \Gloudemans\Shoppingcart\Facades\Cart::remove($item);
+        Cart::remove($item);
         $this->emit('recalculate');
     }
 }

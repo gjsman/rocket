@@ -15,7 +15,7 @@
                     <li>{{ __('Taught by ').$course->instructor->name }}</li>
                     <li>{{ $course->typeName().__(' course for ').$course->difficultyName().' '.$course->category->name }}</li>
                     @if($course->type === 1)
-                        <li>0 {{ __('seats remaining out of ').$course->seats }}</li>
+                        <li>{{ $course->seatsRemaining().__(' seats remaining out of ').$course->seats }}</li>
                     @endif
                 </ul>
             </x-panel>
@@ -32,7 +32,11 @@
                 @if(\Illuminate\Support\Facades\Auth::check())
                     @if($course->type === 1)
                         <p class="mb-4">{{ __('This live course costs $0.00.') }}</p>
-                        <x-button href="{{ route('shop.addToCart', ['course' => $course]) }}">{{ __('Add to cart') }}</x-button>
+                        @if($course->seatsRemaining() !== 0)
+                            <x-button href="{{ route('shop.addToCart', ['course' => $course]) }}">{{ __('Add to cart') }}</x-button>
+                        @else
+                            <x-alert-warning title="{{ __('There are no seats remaining.') }}" />
+                        @endif
                     @elseif($course->type === 2)
                         @if(\Illuminate\Support\Facades\Auth::user()->sparkPlan())
                             @if(student())

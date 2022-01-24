@@ -129,4 +129,15 @@ class Course extends Model
 
         return false;
     }
+
+    public function enrollments(): HasMany
+    {
+        return $this->hasMany(Enrollment::class);
+    }
+
+    public function seatsRemaining(): int {
+        $remaining = (int) $this->seats - (int) $this->enrollments->where('order_id', '!=', 'null')->count();
+        if($remaining < 0) return 0;
+        return $remaining;
+    }
 }
