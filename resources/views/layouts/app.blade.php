@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ __('Homeschool Connections') }}</title>
 
         <!-- Fonts -->
         <!--<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">-->
@@ -45,7 +45,7 @@
                         <div class="mt-16">
                             <div class="text-white mb-2">
                                 <p>{{ __('Build') }} {{ substr(get_current_git_commit(), 0, 7) }}</p>
-                                <p>&copy; {{ date('Y') }} {{ env('APP_NAME', 'Laravel') }}</p>
+                                <p>&copy; {{ date('Y') }} {{ __('Homeschool Connections') }}</p>
                             </div>
                             <x-alert-warning title="ALPHA SOFTWARE NOTICE">
                                 This is ALPHA software and may have serious bugs which may cause damage or loss to stored data. User interface elements and features may not be final and may change without notice. Some features may not be available. It is intended for qualified developers and testers only and must not be used in production systems. Please report feedback to Gabriel Sieben at <a href="mailto:gsieben@homeschoolconnections.com">gsieben@homeschoolconnections.com</a>.

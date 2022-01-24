@@ -6,10 +6,10 @@
     </x-slot>
     <div class="md:grid grid-cols-1 md:grid-cols-3 md:gap-6">
         <div class="col-span-1 h-fit">
-            <x-panel class="mb-8">
+            <x-panel class="mb-6">
                 <a class="text-green-700 font-semibold" href="{{ \Illuminate\Support\Facades\URL::previous() }}">&larr; {{ __('Back to search') }}</a>
             </x-panel>
-            <x-panel class="mb-8">
+            <x-panel class="mb-6">
                 <ul>
                     <li>{{ $course->name }}</li>
                     <li>{{ __('Taught by ').$course->instructor->name }}</li>
@@ -21,17 +21,18 @@
             </x-panel>
             @if(\Illuminate\Support\Facades\Auth::check())
                 @if((\Illuminate\Support\Facades\Auth::user()->rank >= 5) && !student())
-                    <x-panel class="mb-8">
+                    <x-panel class="mb-6">
                         <h3 class="text-lg mb-2">{{ __('Admin Options') }}</h3>
                         <x-button href="{{ route('course', $course) }}">{{ __('Open course') }} &rarr;</x-button>
                     </x-panel>
                 @endif
             @endif
-            <x-panel class="mb-8">
+            <x-panel class="mb-6">
                 <h3 class="text-lg mb-2">{{ __('Enrollment Options') }}</h3>
                 @if(\Illuminate\Support\Facades\Auth::check())
                     @if($course->type === 1)
-                        <p>{{ __('This live course costs $0.00.') }}</p>
+                        <p class="mb-4">{{ __('This live course costs $0.00.') }}</p>
+                        <x-button href="{{ route('shop.addToCart', ['course' => $course]) }}">{{ __('Add to cart') }}</x-button>
                     @elseif($course->type === 2)
                         @if(\Illuminate\Support\Facades\Auth::user()->sparkPlan())
                             @if(student())
@@ -71,7 +72,7 @@
                 @endif
             </x-panel>
             @if($course->type === 1)
-                <x-panel class="mb-8">
+                <x-panel class="mb-6">
                     <h3 class="text-lg mb-2">{{ __('Live Course Refunds') }}</h3>
                     <ul class="list-disc list-inside">
                         <li>95% of the course fee is refunded for cancellations that are made up to one month before the first day of class.</li>
@@ -82,7 +83,7 @@
             @endif
         </div>
         <div class="col-span-2 h-fit">
-            <x-panel class="mb-8">
+            <x-panel class="mb-6">
                 <x-slot name="header">
                     <x-header title="{{ $course->name }}" />
                 </x-slot>
@@ -91,7 +92,7 @@
                 </div>
             </x-panel>
             @if($course->instructor->summary)
-                <x-panel class="mb-8">
+                <x-panel class="mb-6">
                     <x-slot name="header">
                         <x-header title="{{ __('About the instructor, ').$course->instructor->name }}" />
                     </x-slot>

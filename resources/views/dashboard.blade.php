@@ -130,7 +130,7 @@
         @endif
     @else
         <x-panel>
-            <h3 class="text-2xl font-semibold mb-3">{{ env('APP_NAME', 'Laravel') }}</h3>
+            <h3 class="text-2xl font-semibold mb-3">{{ __('Homeschool Connections') }}</h3>
             <p>{{ __('You are not logged in.') }}</p>
             <div class="mt-4">
                 <x-button href="{{ url('/login') }}">{{ __('Login') }}</x-button>

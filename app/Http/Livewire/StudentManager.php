@@ -41,7 +41,7 @@ class StudentManager extends Component
             $this->createStudentForm['name'] = '';
             $this->emit('created');
         } else {
-            throw ValidationException::withMessages(['name' => __('There is a limit of ').$this->user->students_limit.__(' students on your account. Contact ').env('APP_NAME', 'Laravel').__(' Customer Support to add more students.')]);
+            throw ValidationException::withMessages(['name' => __('There is a limit of ').$this->user->students_limit.__(' students on your account. Contact Homeschool Connections Customer Support to add more students.')]);
         }
     }
 

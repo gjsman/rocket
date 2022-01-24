@@ -5608,6 +5608,16 @@ select{
   color: rgb(190 18 60 / var(--tw-text-opacity));
 }
 
+.hover\:text-indigo-900:hover{
+  --tw-text-opacity: 1;
+  color: rgb(49 46 129 / var(--tw-text-opacity));
+}
+
+.hover\:text-red-700:hover{
+  --tw-text-opacity: 1;
+  color: rgb(185 28 28 / var(--tw-text-opacity));
+}
+
 .hover\:underline:hover{
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
@@ -6347,6 +6357,11 @@ select{
     margin-bottom: 0px;
   }
 
+  .sm\:-mx-6{
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+  }
+
   .sm\:ml-3{
     margin-left: 0.75rem;
   }
@@ -6867,6 +6882,11 @@ select{
 
   .lg\:col-span-full{
     grid-column: 1 / -1;
+  }
+
+  .lg\:-mx-8{
+    margin-left: -2rem;
+    margin-right: -2rem;
   }
 
   .lg\:flex{

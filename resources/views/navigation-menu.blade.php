@@ -33,6 +33,13 @@
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ml-6 mr-6">
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link class="mr-2" href="{{ route('cart') }}" :active="request()->routeIs('cart')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                    </x-nav-link>
+                </div>
                 @if(\Illuminate\Support\Facades\Auth::check())
                     <x-select-student :showInMenu="true" :showStudentName="false" />
 
@@ -171,6 +178,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('instructors') }}" :active="request()->routeIs('instructors')">
                 {{ __('Instructors') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('cart') }}" :active="request()->routeIs('cart')">
+                {{ __('Cart') }}
             </x-responsive-nav-link>
             @if(\Illuminate\Support\Facades\Auth::check())
                 @if(\Illuminate\Support\Facades\Auth::user()->rank >= 5)

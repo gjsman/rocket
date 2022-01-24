@@ -144,6 +144,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
 Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 Route::get('/shop/{course}', [ShopController::class, 'show'])->name('shop.show');
+Route::get('/shop/{course}/addToCart', [ShopController::class, 'addToCart'])->name('shop.addToCart');
+Route::get('/cart', [ShopController::class, 'cart'])->name('cart');
 Route::get('/instructors', [InstructorController::class, 'index'])->name('instructors');
 Route::get('/instructor/{instructor}', [InstructorController::class, 'show'])->name('instructor');
 /** Only enrolled can see these routes. */
