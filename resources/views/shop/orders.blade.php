@@ -2,19 +2,9 @@
     <div class="md:grid grid-cols-1 md:grid-cols-4 md:gap-6">
         <div class="col-span-3 h-fit">
             <x-panel class="mb-6">
-                <a class="text-green-700 font-semibold" href="{{ route('shop') }}">&larr; {{ __('Back to shop') }}</a>
-            </x-panel>
-            <x-panel class="mb-6">
                 <x-slot name="header">
-                    <x-header>
-                        <x-slot name="title">
-                            {{ __('My cart') }}
-                        </x-slot>
-                    </x-header>
+                    <x-header title="{{ __('My Orders') }}" />
                 </x-slot>
-                <x-alert-info class="mb-6" title="{{ __('You cannot order more than 5 seats of a course, or more seats than are remaining.') }}">
-                    {{ __('If a course was removed automatically from your cart, the remaining seats were purchased after you added the course to your cart. Adding a course to your cart does not guarantee a seat.') }}
-                </x-alert-info>
                 <div class="flex flex-col">
                     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -23,13 +13,13 @@
                                     <thead class="bg-gray-50">
                                     <tr>
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            {{ __('Qty') }}
-                                        </th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             {{ __('Name') }}
                                         </th>
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            {{ __('Price') }}
+                                            {{ __('Status') }}
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            {{ __('Order date') }}
                                         </th>
                                         <th scope="col" class="relative px-6 py-3">
                                             <span class="sr-only">{{ __('Remove from cart buttons') }}</span>
@@ -37,8 +27,22 @@
                                     </tr>
                                     </thead>
                                     <tbody class="bg-white divide-y divide-gray-200">
-                                        @foreach(\Gloudemans\Shoppingcart\Facades\Cart::content() as $item)
-                                            @livewire('cart-item', ['rowId' => $item->rowId])
+                                        @foreach($orders as $order)
+                                            <tr class="bg-white">
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {{ $order->course->name }}
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {{ __('Unassigned') }}
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {{ $order->created_at->format('m/d/Y') }}
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                                    <a href="{{ url($order->receipt_url) }}" class="text-green-700 hover:text-green-800 mr-4" style="text-decoration: none;">{{ __('Receipt') }}</a>
+                                                    <a href="#" class="text-green-700 hover:text-green-800" style="text-decoration: none;">{{ __('Something') }}</a>
+                                                </td>
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -49,25 +53,11 @@
             </x-panel>
         </div>
         <div class="col-span-1 h-fit">
-            <x-panel class="mb-6">
+            <x-panel>
                 <x-slot name="header">
-                    <x-header>
-                        <x-slot name="title">
-                            {{ __('Checkout') }}
-                        </x-slot>
-                    </x-header>
+                    <x-header title="{{ __('Missing an order?') }}" />
                 </x-slot>
-                @livewire('cart-checkout-window')
-            </x-panel>
-            <x-panel class="mb-6">
-                <x-slot name="header">
-                    <x-header>
-                        <x-slot name="title">
-                            {{ __('Previous orders') }}
-                        </x-slot>
-                    </x-header>
-                </x-slot>
-                <x-button href="{{ route('orders') }}">{{ __('View previous orders') }}</x-button>
+                <x-button href="{{ route('checkoutCompleted') }}">{{ __('Reload recent orders') }}</x-button>
             </x-panel>
         </div>
     </div>

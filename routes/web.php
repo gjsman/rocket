@@ -39,6 +39,9 @@ Route::get('/dashboard', function () {
 
 /** Only logged in and verified users can see these routes. */
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('/orders', [ShopController::class, 'orders'])->name('orders');
+    Route::get('/cart/checkout', [ShopController::class, 'checkout'])->name('checkout');
+    Route::get('/cart/checkout/completed', [ShopController::class, 'checkoutCompleted'])->name('checkoutCompleted');
 
     Route::get('/student/unset', [StudentController::class, 'unset'])->name('student.unset');
     Route::get('/student/{student}', [StudentController::class, 'set'])->name('student.set');

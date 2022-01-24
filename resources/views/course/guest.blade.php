@@ -31,7 +31,7 @@
                 <h3 class="text-lg mb-2">{{ __('Enrollment Options') }}</h3>
                 @if(\Illuminate\Support\Facades\Auth::check())
                     @if($course->type === 1)
-                        <p class="mb-4">{{ __('This live course costs $0.00.') }}</p>
+                        <p class="mb-4">{{ __('This live course costs $').number_format(($course->price /100), 2, '.', ' ').__('.') }}</p>
                         @if($course->seatsRemaining() !== 0)
                             <x-button href="{{ route('shop.addToCart', ['course' => $course]) }}">{{ __('Add to cart') }}</x-button>
                         @else

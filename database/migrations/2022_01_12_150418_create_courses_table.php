@@ -29,7 +29,7 @@ class CreateCoursesTable extends Migration
             $table->dateTime('start_time')->nullable();
             $table->dateTime('end_time')->nullable();
             $table->integer('counterpart_id')->nullable();
-            $table->integer('price')->nullable();
+            $table->integer('price')->default(0);
             $table->boolean('visible')->default(true);
             $table->boolean('show_instructor_access')->default(false);
             $table->timestamps();

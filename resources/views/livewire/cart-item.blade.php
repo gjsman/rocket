@@ -8,7 +8,7 @@
             {{ $item->model->name }}
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-            ${{ '9.99' }}
+            ${{ $item->price }}
         </td>
         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
             <a href="#" wire:click.prevent="deleteCartItem('{{ $item->rowId }}')" class="text-red-600 hover:text-red-700" style="text-decoration: none;">{{ __('Remove') }}</a>

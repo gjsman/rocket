@@ -17,7 +17,8 @@
         "laravel/sanctum": "^2.11",
         "laravel/spark-stripe": "^1.2",
         "laravel/tinker": "^2.5",
-        "livewire/livewire": "^2.5"
+        "livewire/livewire": "^2.5",
+        "ext-bcmath": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
