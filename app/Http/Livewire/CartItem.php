@@ -34,7 +34,7 @@ class CartItem extends Component
                     if((int) $this->quantity > 0) {
                         Cart::update($this->rowId, $this->quantity);
                     } else {
-                        $this->quantity = 1;
+                        $this->quantity = $limit;
                     }
                 } else {
                     $this->quantity = $limit;
