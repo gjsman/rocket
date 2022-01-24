@@ -23,7 +23,7 @@
                 <x-select-student :showStudentName="false" :showInMenu="false" />
             </div>
         </x-panel>
-        @if(\Illuminate\Support\Facades\Auth::user()->instructing !== null)
+        @if(\Illuminate\Support\Facades\Auth::user()->instructing->isNotEmpty())
             <div class="mb-8">
                 <x-list>
                     <x-header title="{{ __('Courses I Am Instructing') }}" :list="true" />

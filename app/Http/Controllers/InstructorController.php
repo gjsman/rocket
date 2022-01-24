@@ -14,4 +14,10 @@ class InstructorController extends Controller
     {
         return view('instructors.index');
     }
+
+    public function show(User $instructor): Factory|View|Application
+    {
+        if($instructor->rank < 3) abort(404);
+        return view('instructors.show', ['instructor' => $instructor]);
+    }
 }

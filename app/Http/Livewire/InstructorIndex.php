@@ -13,7 +13,7 @@ class InstructorIndex extends Component
     public function render()
     {
         $instructors = User::query();
-        $instructors->where('rank', '=', 3);
+        $instructors->where('rank', '>=', 3);
 
         if ($this->search) {
             $instructors->where('name', 'LIKE', '%'.$this->search.'%');

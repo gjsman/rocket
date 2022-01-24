@@ -43,7 +43,7 @@ class EditAssignmentSubmission extends Component implements Forms\Contracts\HasF
                 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
                 'application/vnd.ms-powerpoint',
                 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
-            ])->required()->helperText('Accepted Files: .doc, .docx, .xls, .xlsx, .ppt, .pptx, .pdf, .jpg, .jpeg, .png')
+            ])->required()->helperText('Accepted Files: doc, docx, xls, xlsx, ppt, pptx, pdf, jpg, jpeg, png')
         ];
     }
 

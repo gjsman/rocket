@@ -22,7 +22,7 @@
             <x-slot name="override">
                 <x-list>
                     @foreach($instructors as $instructor)
-                        <x-list-clickable-item href="#" title="{{ $instructor->name }}" />
+                        <x-list-clickable-item href="{{ route('instructor', ['instructor' => $instructor]) }}" title="{{ $instructor->name }}" />
                     @endforeach
                 </x-list>
             </x-slot>
