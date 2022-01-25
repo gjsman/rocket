@@ -84,6 +84,7 @@ class ShopController extends Controller
 
     public function checkoutCompleted(): RedirectResponse
     {
+        Cart::destroy();
         $stripe = new StripeClient(
             env('STRIPE_SECRET')
         );

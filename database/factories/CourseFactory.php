@@ -23,6 +23,8 @@ class CourseFactory extends Factory
             'category_id' => Category::inRandomOrder()->first(),
             'instructor_id' => User::inRandomOrder()->first(),
             'difficulty' => rand(1, 4),
+            'price' => rand(100, 10000),
+            'seats' => rand(5, 50),
         ];
     }
 }
