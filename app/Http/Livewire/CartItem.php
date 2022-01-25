@@ -17,13 +17,35 @@ class CartItem extends Component
     {
         try {
             $item = Cart::get($this->rowId);
-            $limit = min(array(
-                3,
-                (3 - Order::where('user_id', Auth::id())->where('course_id', $item->model->id)->count()),
-                $item->model->seatsRemaining(),
-            ));
+            if($item->model === null) {
+                Cart::remove($this->rowId);
+                unset($item);
+                return view('livewire.cart-item');
+            }
+            if(Auth::check()) {
+                $limit = min(array(
+                    3,
+                    (3 - Order::where('user_id', Auth::id())->where('course_id', $item->model->id)->count()),
+                    $item->model->seatsRemaining(),
+                ));
+            } else {
+                $limit = min(array(
+                    3,
+                    $item->model->seatsRemaining(),
+                ));
+            }
             if($this->quantity === null) {
-                if((int) $item->qty <= $limit) {
+                if ((int) $item->qty > $limit) {
+                    if($limit > 0) {
+                        $item->qty = $limit;
+                        $this->quantity = $limit;
+                        Cart::update($this->rowId, $this->quantity);
+                    } else {
+                        $this->quantity = 0;
+                        $this->deleteCartItem($item->rowId);
+                        unset($item);
+                    }
+                } elseif((int) $item->qty <= $limit) {
                     $this->quantity = $item->qty;
                 } elseif($limit > 0) {
                     $this->quantity = $limit;

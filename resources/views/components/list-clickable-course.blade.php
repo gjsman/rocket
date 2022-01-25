@@ -31,7 +31,7 @@
     @if($showSeats)
         <x-slot name="footerRightIcons">
             @if($course->type === 1)
-                <x-list-icon :fixSpacing="true" title="{{ $course->seats.__(' seats') }}">
+                <x-list-icon :fixSpacing="true" title="{{ $course->seatsRemaining().__('/').$course->seats.__(' seats remaining') }}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                     </svg>

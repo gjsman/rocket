@@ -23,6 +23,7 @@ class CreateOrdersTable extends Migration
             $table->string('payment_intent');
             $table->string('receipt_url');
             $table->string('receipt_email');
+            $table->integer('key');
             $table->timestamps();
         });
     }

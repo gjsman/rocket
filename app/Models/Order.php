@@ -23,6 +23,7 @@ class Order extends Model
         'payment_intent',
         'receipt_email',
         'receipt_url',
+        'key'
     ];
 
     /**

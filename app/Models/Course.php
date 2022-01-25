@@ -136,8 +136,13 @@ class Course extends Model
     }
 
     public function seatsRemaining(): int {
-        $remaining = (int) $this->seats - (int) $this->enrollments->where('order_id', '!=', 'null')->count();
+        $remaining = (int) $this->seats - (int) $this->orders()->count();
         if($remaining < 0) return 0;
         return $remaining;
+    }
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
     }
 }

@@ -114,7 +114,9 @@ class ShopController extends Controller
                     }
                 }
                 if(!empty($courseIDs)) {
-                    foreach ($courseIDs as $courseID) {
+                    foreach ($courseIDs as $key => $courseID) {
+                        // TODO: Multiple course IDs on Same Order do not get created...
+                        // Another field is necessary for separation
                         Order::firstOrCreate([
                             'user_id' => Auth::id(),
                             'course_id' => $courseID,
@@ -125,6 +127,7 @@ class ShopController extends Controller
                             'payment_intent' => $intent->id,
                             'receipt_email' => $intent->charges->data[0]['receipt_email'],
                             'receipt_url' => $intent->charges->data[0]['receipt_url'],
+                            'key' => $key,
                         ]);
                     }
                 }
