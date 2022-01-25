@@ -63,10 +63,17 @@
             </x-panel>
         </div>
         <div class="col-span-1 h-fit">
+            <x-panel class="mb-6">
+                <x-slot name="header">
+                    <x-header title="{{ __('Back to Cart') }}" />
+                </x-slot>
+                <x-button href="{{ route('cart') }}">{{ __('Go back to my cart') }}</x-button>
+            </x-panel>
             <x-panel>
                 <x-slot name="header">
                     <x-header title="{{ __('Missing an order?') }}" />
                 </x-slot>
+                <p class="mb-4">{{ __('We can re-scan our payment partner for course orders. This will reset your Cart.') }}</p>
                 <x-button href="{{ route('checkoutCompleted') }}">{{ __('Reload recent orders') }}</x-button>
             </x-panel>
         </div>
