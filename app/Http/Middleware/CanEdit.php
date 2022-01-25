@@ -36,6 +36,7 @@ class CanEdit
             return redirect()->route('dashboard');
         }
 
+
         if (!$request->user()) return redirect()->route('shop.show', $course);
 
         if($section) {

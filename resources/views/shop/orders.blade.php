@@ -48,7 +48,7 @@
                                                         @if($order->assigned())
                                                             <a href="#" class="text-green-700 hover:text-green-800" style="text-decoration: none;">{{ __('Unassign') }}</a>
                                                         @else
-                                                            <x-button href="#">{{ __('Assign to student') }}</x-button>
+                                                            <x-button href="{{ route('order.assign', ['order' => $order]) }}">{{ __('Assign to student') }}</x-button>
                                                         @endif
                                                     </td>
                                                 </tr>

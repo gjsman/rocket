@@ -28,6 +28,10 @@
                             <x-secondary-button href="{{ route('course', ['course' => $section->course]) }}">
                                 {{ __('Cancel') }}
                             </x-secondary-button>
+                        @elseif(isset($section))
+                            <x-secondary-button href="{{ route('course', ['course' => $section->course]) }}">
+                                {{ __('Cancel') }}
+                            </x-secondary-button>
                         @endif
                     @endif
                     <x-button type="submit">

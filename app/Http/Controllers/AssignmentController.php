@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Assignment;
+use App\Models\AssignmentSubmission;
 use App\Models\Book;
 use App\Models\Section;
 use Illuminate\Contracts\Foundation\Application;
@@ -37,6 +38,11 @@ class AssignmentController extends Controller
     public function all(Assignment $element): Factory|View|Application
     {
         return view('assignment.all', ['element' => $element]);
+    }
+
+    public function showSubmission(AssignmentSubmission $element): Factory|View|Application
+    {
+        return view('assignment.showSubmission', ['element' => $element]);
     }
 
     public function edit(Assignment $element): Factory|View|Application

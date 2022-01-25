@@ -42,6 +42,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/orders', [ShopController::class, 'orders'])->name('orders');
     Route::get('/cart/checkout', [ShopController::class, 'checkout'])->name('checkout');
     Route::get('/cart/checkout/completed', [ShopController::class, 'checkoutCompleted'])->name('checkoutCompleted');
+    Route::get('/orders/assign/{order}', [ShopController::class, 'assign'])->name('order.assign');
 
     Route::get('/student/unset', [StudentController::class, 'unset'])->name('student.unset');
     Route::get('/student/{student}', [StudentController::class, 'set'])->name('student.set');
@@ -128,6 +129,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
         /** Assignments */
         Route::get('/assignment/create/{section}', [AssignmentController::class, 'create'])->name('assignment.create');
+        Route::get('/assignment/submission/{element}', [AssignmentController::class, 'showSubmission'])->name('assignment.showSubmission');
         Route::get('/assignment/{element}/edit', [AssignmentController::class, 'edit'])->name('assignment.edit');
         Route::get('/assignment/{element}/delete', [AssignmentController::class, 'delete'])->name('assignment.delete');
         Route::get('/assignment/{element}/all', [AssignmentController::class, 'all'])->name('assignment.all');

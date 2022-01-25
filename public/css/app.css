@@ -4384,6 +4384,11 @@ select{
   background-color: rgb(107 114 128 / 0.05);
 }
 
+.bg-green-700{
+  --tw-bg-opacity: 1;
+  background-color: rgb(21 128 61 / var(--tw-bg-opacity));
+}
+
 .bg-opacity-25{
   --tw-bg-opacity: 0.25;
 }
@@ -6080,6 +6085,10 @@ select{
 
 .disabled\:opacity-25:disabled{
   opacity: 0.25;
+}
+
+.disabled\:opacity-75:disabled{
+  opacity: 0.75;
 }
 
 .disabled\:hover\:bg-white:hover:disabled{

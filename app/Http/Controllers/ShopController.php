@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Course;
 use App\Models\Order;
 use Carbon\Carbon;
+use ErrorException;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -98,39 +99,43 @@ class ShopController extends Controller
 
         foreach($intents->data as $intent) {
             if($intent->status === 'succeeded') {
-                $checkoutSession = $stripe->checkout->sessions->all(
-                    [
-                        'payment_intent' => $intent->id,
-                        'expand' => ['data.line_items'],
-                    ]
-                )->data[0];
-                $lineItems = $checkoutSession->line_items->data;
-                $courseIDs = array();
-                foreach ($lineItems as $lineItem) {
-                    $lineItemProduct = $stripe->products->retrieve($lineItem->price->product);
-                    if(isset($lineItemProduct->metadata->course_id)) {
-                        for($i = 0; $i < $lineItem->quantity; $i++) {
-                            $courseIDs[] = $lineItemProduct->metadata->course_id;
+                try {
+                    $checkoutSession = $stripe->checkout->sessions->all(
+                        [
+                            'payment_intent' => $intent->id,
+                            'expand' => ['data.line_items'],
+                        ]
+                    )->data[0];
+                    $lineItems = $checkoutSession->line_items->data;
+                    $courseIDs = array();
+                    foreach ($lineItems as $lineItem) {
+                        $lineItemProduct = $stripe->products->retrieve($lineItem->price->product);
+                        if(isset($lineItemProduct->metadata->course_id)) {
+                            for($i = 0; $i < $lineItem->quantity; $i++) {
+                                $courseIDs[] = $lineItemProduct->metadata->course_id;
+                            }
                         }
                     }
-                }
-                if(!empty($courseIDs)) {
-                    foreach ($courseIDs as $key => $courseID) {
-                        // TODO: Multiple course IDs on Same Order do not get created...
-                        // Another field is necessary for separation
-                        Order::firstOrCreate([
-                            'user_id' => Auth::id(),
-                            'course_id' => $courseID,
-                            'price' => $checkoutSession->amount_total,
-                            'charge_id' => $intent->charges->data[0]['id'],
-                            'charge_created' =>
-                                Carbon::createFromTimestamp($intent->charges->data[0]['created'])->toDateTime(),
-                            'payment_intent' => $intent->id,
-                            'receipt_email' => $intent->charges->data[0]['receipt_email'],
-                            'receipt_url' => $intent->charges->data[0]['receipt_url'],
-                            'key' => $key,
-                        ]);
+                    if(!empty($courseIDs)) {
+                        foreach ($courseIDs as $key => $courseID) {
+                            // TODO: Multiple course IDs on Same Order do not get created...
+                            // Another field is necessary for separation
+                            Order::firstOrCreate([
+                                'user_id' => Auth::id(),
+                                'course_id' => $courseID,
+                                'price' => $checkoutSession->amount_total,
+                                'charge_id' => $intent->charges->data[0]['id'],
+                                'charge_created' =>
+                                    Carbon::createFromTimestamp($intent->charges->data[0]['created'])->toDateTime(),
+                                'payment_intent' => $intent->id,
+                                'receipt_email' => $intent->charges->data[0]['receipt_email'],
+                                'receipt_url' => $intent->charges->data[0]['receipt_url'],
+                                'key' => $key,
+                            ]);
+                        }
                     }
+                } catch (ErrorException) {
+
                 }
             }
         }
@@ -211,5 +216,13 @@ class ShopController extends Controller
     {
         $orders = Auth::user()->orders->sortByDesc('id');
         return view('shop.orders', ['orders' => $orders]);
+    }
+
+    public function assign(Order $order): Factory|View|Application
+    {
+        if (Auth::id() !== $order->user_id) abort(403);
+        if ($order->course === null) abort(404);
+        $students = Auth::user()->students->where('active', true);
+        return view('shop.assign', ['students' => $students, 'order' => $order]);
     }
 }
