@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Collection;
 
 class Course extends Model
 {
@@ -144,5 +145,24 @@ class Course extends Model
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function gradeables(): Collection
+    {
+        $sections = $this->sections->sortBy('order');
+        $gradeables = new Collection;
+        foreach ($sections as $section) {
+            $elements = new Collection;
+            if(Auth::user()->can('update', $this)) {
+                $elements = $elements->merge($section->assignments);
+                $elements = $elements->merge($section->quizzes);
+            } else {
+                $elements = $elements->merge($section->assignments->where('visible', true));
+                $elements = $elements->merge($section->quizzes->where('visible', true));
+            }
+            $elements = $elements->sortBy('order');
+            $gradeables = $gradeables->merge($elements);
+        }
+        return $gradeables;
     }
 }

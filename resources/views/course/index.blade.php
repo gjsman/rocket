@@ -77,8 +77,15 @@
             @elseif($location === 'participants')
                 <x-panel class="mb-6">
                     <x-slot name="header">
-                        <x-header title="{{ __('Participants') }}" />
+                        <x-header title="{{ __('Students') }}" />
                     </x-slot>
+                    <nav class="space-y-1">
+                        @forelse($course->enrollments as $enrollment)
+                            <x-sidebar-item href="#">{{ $enrollment->student->name }}</x-sidebar-item>
+                        @empty
+                            <x-sidebar-item href="#">{{ __('No students are enrolled in the course.') }}</x-sidebar-item>
+                        @endforelse
+                    </nav>
                 </x-panel>
             @elseif($location === 'completion')
                 <x-panel class="mb-6">
@@ -128,6 +135,8 @@
                     </x-slot>
                     @livewire('edit-section', ['course' => $course])
                 </x-panel>
+            @elseif ($location === 'gradebook')
+                @livewire('gradebook', ['course' => $course])
             @else
                 <x-panel class="mb-6">
                     <x-slot name="header">

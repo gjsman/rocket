@@ -1,7 +1,7 @@
 <nav class="space-y-1" aria-label="Sidebar">
     {{-- Knowing others is intelligence; knowing yourself is true wisdom. --}}
     <x-sidebar-item href="{{ route('course.location', ['course' => $course, 'location' => 'information']) }}" :active="$location === 'information'">
-        {{ __('General Information') }}
+        {{ __('Overview') }}
     </x-sidebar-item>
     @if($course->show_instructor_access)
         <x-sidebar-item href="{{ route('course.location', ['course' => $course, 'location' => 'instructorAccess']) }}" :active="$location === 'instructorAccess'">
@@ -10,7 +10,10 @@
     @endif
     @can('update', $course)
         <x-sidebar-item href="{{ route('course.location', ['course' => $course, 'location' => 'participants']) }}" :active="$location === 'participants'">
-            {{ __('Participants') }}
+            {{ __('Students') }}
+        </x-sidebar-item>
+        <x-sidebar-item href="{{ route('course.location', ['course' => $course, 'location' => 'gradebook']) }}" :active="$location === 'gradebook'">
+            {{ __('Gradebook') }}
         </x-sidebar-item>
     @endcan
     @php

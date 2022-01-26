@@ -35,7 +35,7 @@ class Elements extends Component
             $books = $this->section->books->where('visible', true);
             $assignments = $this->section->assignments->where('visible', true);
             $quizzes = $this->section->quizzes->where('visible', true);
-            $forums = $this->sections->forums->where('visible', true);
+            $forums = $this->section->forums->where('visible', true);
         }
 
         $elements = new Collection;

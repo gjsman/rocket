@@ -24,14 +24,16 @@
             </div>
         </x-panel>
         @if(\Illuminate\Support\Facades\Auth::user()->instructing->isNotEmpty())
-            <div class="mb-8">
-                <x-list>
-                    <x-header title="{{ __('Courses I Am Instructing') }}" :list="true" />
-                    @foreach(\Illuminate\Support\Facades\Auth::user()->instructing as $course)
-                        <x-list-clickable-course :course="$course" :showInstructor="false" :showSeats="false" :showType="true"></x-list-clickable-course>
-                    @endforeach
-                </x-list>
-            </div>
+            @if(!student())
+                <div class="mb-8">
+                    <x-list>
+                        <x-header title="{{ __('Courses I Am Instructing') }}" :list="true" />
+                        @foreach(\Illuminate\Support\Facades\Auth::user()->instructing as $course)
+                            <x-list-clickable-course :course="$course" :showInstructor="false" :showSeats="false" :showType="true"></x-list-clickable-course>
+                        @endforeach
+                    </x-list>
+                </div>
+            @endif
         @endif
         @if(student())
             <div class="md:grid grid-cols-1 md:grid-cols-2 md:gap-6 mb-8">
