@@ -22,7 +22,7 @@
                 @forelse($element->submissions->sortByDesc('created_at') as $key => $submission)
                     @php
                         $badge = '';
-                        if($submission->grade !== null) $badge = 'Graded';
+                        if($submission->grade !== null) $badge = __('Graded ').$submission->grade->value.__(' / ').$submission->grade->base;
                     @endphp
                     <x-list-clickable-item href="{{ route('assignment.showSubmission', ['element' => $submission]) }}" :badge="$badge">
                         <x-slot name="title">

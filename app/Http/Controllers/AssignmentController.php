@@ -28,7 +28,7 @@ class AssignmentController extends Controller
     public function showPrevious(Assignment $element): Factory|View|Application
     {
         if(student()) {
-            $submissions = $element->submissions->where('student_id', student());
+            $submissions = $element->submissions->where('student_id', student()->id);
         } else {
             $submissions = $element->submissions->where('user_id', Auth::id());
         }

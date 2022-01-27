@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\CourseProgress;
+use App\Models\Enrollment;
 use App\Models\Section;
 use App\Models\Student;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -122,5 +123,11 @@ class CourseController extends Controller
         $course = $section->course;
         $section->delete();
         return redirect()->route('course', ['course' => $course]);
+    }
+
+    public function showStudent(Enrollment $enrollment): Factory|View|Application
+    {
+        $student = $enrollment->student;
+        return view('course.show-student', ['enrollment' => $enrollment, 'student' => $student]);
     }
 }

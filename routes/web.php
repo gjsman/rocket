@@ -69,6 +69,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     });
     Route::middleware(['canEdit'])->group(function () {
+        Route::get('/course/enrollments/{enrollment}', [CourseController::class, 'showStudent'])->name('course.student');
         Route::get('/course/{course}/edit', [CourseController::class, 'edit'])->name('course.edit');
         Route::get('/course/move/{course}/{class}/{id}', [ElementController::class, 'move'])->name('element.move');
         Route::post('/course/move/{course}/{class}/{id}', [ElementController::class, 'move'])->name('element.move');

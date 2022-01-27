@@ -6,9 +6,15 @@
         </x-slot>
         <nav class="space-y-1">
             @foreach($gradeables as $gradeable)
-                <x-sidebar-item href="#">
-                    {{ $gradeable->name }}
-                </x-sidebar-item>
+                @if(class_basename($gradeable) === 'Assignment')
+                    <x-sidebar-item href="{{ route('assignment.all', ['element' => $gradeable]) }}">
+                        {{ $gradeable->name }}
+                    </x-sidebar-item>
+                @else
+                    <x-sidebar-item href="#">
+                        {{ $gradeable->name }}
+                    </x-sidebar-item>
+                @endif
             @endforeach
         </nav>
     </x-panel>

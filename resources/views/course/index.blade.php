@@ -81,7 +81,7 @@
                     </x-slot>
                     <nav class="space-y-1">
                         @forelse($course->enrollments as $enrollment)
-                            <x-sidebar-item href="#">{{ $enrollment->student->name }}</x-sidebar-item>
+                            <x-sidebar-item href="{{ route('course.student', ['enrollment' => $enrollment]) }}">{{ $enrollment->student->name }}</x-sidebar-item>
                         @empty
                             <x-sidebar-item href="#">{{ __('No students are enrolled in the course.') }}</x-sidebar-item>
                         @endforelse

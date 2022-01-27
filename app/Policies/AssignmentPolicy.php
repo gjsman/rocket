@@ -37,7 +37,7 @@ class AssignmentPolicy
             if($user->id === $assignment->section->course->instructor_id) return true;
         } else {
             if(!$assignment->visible) return false;
-            if(!student()->can('view', $assignment->section)) return false;
+            // if(!student()->can('view', $assignment->section)) return false;
             if(student()->enrolled($assignment->section->course)) return true;
         }
         return false;

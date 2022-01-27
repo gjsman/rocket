@@ -21,6 +21,7 @@ class CanEdit
         $section = $request->route()->parameter('section');
         $element = $request->route()->parameter('element');
         $course = $request->route()->parameter('course');
+        $enrollment = $request->route()->parameter('enrollment');
 
         if ($section) {
             $course = $section->course;
@@ -32,10 +33,11 @@ class CanEdit
             }
         } elseif ($course) {
             // $course = $course already, just don't go through the else
+        } elseif ($enrollment) {
+            $course = $enrollment->course;
         } else {
             return redirect()->route('dashboard');
         }
-
 
         if (!$request->user()) return redirect()->route('shop.show', $course);
 
