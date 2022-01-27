@@ -53,6 +53,8 @@
                         </x-slot>
                     </x-header>
                 </x-slot>
+                <x-secondary-button href="" disabled>{{ __('Refund course') }}</x-secondary-button>
+                <x-secondary-button href="" disabled>{{ __('Unenroll student') }}</x-secondary-button>
             </x-panel>
         </div>
     </div>

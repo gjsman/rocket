@@ -37,7 +37,7 @@ class CourseController extends Controller
             } else {
                 $this->setLocation($course, 'information');
             }
-        } elseif ($location === 'information' || $location === 'addSection' || $location === 'instructorAccess' || $location === 'gradebook' || $location === 'participants' || $location === 'completion') {
+        } elseif ($location === 'information' || $location === 'addSection' || $location === 'grades' || $location === 'instructorAccess' || $location === 'gradebook' || $location === 'participants' || $location === 'completion') {
             if ($location === 'participants' || $location === 'addSection' || $location === 'gradebook') {
                 if(Auth::user()->can('update', $course)) {
                     $this->setLocation($course, $location);

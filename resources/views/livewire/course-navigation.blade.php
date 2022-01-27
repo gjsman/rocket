@@ -16,6 +16,11 @@
             {{ __('Gradebook') }}
         </x-sidebar-item>
     @endcan
+    @if(student())
+        <x-sidebar-item href="{{ route('course.location', ['course' => $course, 'location' => 'grades']) }}" :active="$location === 'grades'">
+            {{ __('My Grades') }}
+        </x-sidebar-item>
+    @endif
     @php
         $showDraggableHandles = (\Illuminate\Support\Facades\Auth::user()->can('update', $this->course));
     @endphp

@@ -87,6 +87,35 @@
                         @endforelse
                     </nav>
                 </x-panel>
+            @elseif($location === 'grades')
+                <x-panel class="mb-6">
+                    <x-slot name="header">
+                        <x-header title="{{ __('My Grades') }}" />
+                    </x-slot>
+                    <nav class="space-y-1">
+                        @foreach($course->gradeables() as $gradeable)
+                            @if(class_basename($gradeable) === 'Assignment')
+                                @php
+                                    $submission = $gradeable->submissions()->where('student_id', student()->id)->latest()->get()->first();
+                                @endphp
+                                <x-sidebar-item href="{{ route('assignment.previous', ['element' => $gradeable]) }}">
+                                    {{ $gradeable->name }}
+                                    @if($submission)
+                                        <div class="ml-2 flex-shrink-0 flex float-right">
+                                            <p class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                {{ $submission->grade->value.__(' / ').$submission->grade->base }}
+                                            </p>
+                                        </div>
+                                    @endif
+                                </x-sidebar-item>
+                            @else
+                                <x-sidebar-item href="#">
+                                    {{ $gradeable->name }}
+                                </x-sidebar-item>
+                            @endif
+                        @endforeach
+                    </nav>
+                </x-panel>
             @elseif($location === 'completion')
                 <x-panel class="mb-6">
                     <x-slot name="header">
