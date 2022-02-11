@@ -21,6 +21,8 @@ class CreateSectionsTable extends Migration
             $table->integer('course_id');
             $table->boolean('visible')->default(false);
             $table->string('order');
+            $table->date('date')->nullable();
+            $table->boolean('show_date')->default(false);
             $table->timestamps();
         });
     }

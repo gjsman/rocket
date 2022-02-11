@@ -18,7 +18,7 @@
     @endcan
     @if(student())
         <x-sidebar-item href="{{ route('course.location', ['course' => $course, 'location' => 'grades']) }}" :active="$location === 'grades'">
-            {{ __('My Grades') }}
+            {{ __('Grades') }}
         </x-sidebar-item>
     @endif
     @php

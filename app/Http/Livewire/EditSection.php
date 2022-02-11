@@ -24,6 +24,8 @@ class EditSection extends Component implements Forms\Contracts\HasForms
                 'name' => $this->section->name,
                 'summary' => $this->section->summary,
                 'visible' => $this->section->visible,
+                'date' => $this->section->date,
+                'show_date' => $this->section->show_date,
             ]);
         } else {
             $this->form->fill();
@@ -34,6 +36,8 @@ class EditSection extends Component implements Forms\Contracts\HasForms
     {
         return [
             Forms\Components\TextInput::make('name')->required(),
+            Forms\Components\DatePicker::make('date')->nullable()->name('Start date')->helperText('Putting a date on a section is optional.'),
+            Forms\Components\Checkbox::make('show_date')->name('Show start date')->default(true),
             Forms\Components\RichEditor::make('summary'),
             Forms\Components\Checkbox::make('visible')->default(true),
         ];

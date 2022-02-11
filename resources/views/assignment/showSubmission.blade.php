@@ -35,9 +35,9 @@
                         <p class="mt-4">{{ __('Assignment Due:') }}</p>
                         <p>{{ $element->assignment->due }}</p>
                         @if($element->assignment->due < $element->created_at)
-                            <p class="mt-4 text-danger-700">{{ __('This assignment was submitted late.') }}</p>
+                            <p class="mt-4 text-danger-700 font-semibold">{{ __('This assignment was submitted late.') }}</p>
                         @else
-                            <p class="mt-4 text-green-700">{{ __('This assignment was submitted on time.') }}</p>
+                            <p class="mt-4 text-green-700 font-semibold">{{ __('This assignment was submitted on time.') }}</p>
                         @endif
                     @endif
                 @endif

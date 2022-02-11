@@ -112,7 +112,7 @@
                     </x-list-clickable-item>
                 </x-list>
                 <x-list class="col-span-1">
-                    <x-header title="{{ __('Select your name') }}" :list="true" />
+                    <x-header title="{{ __('Select your student profile') }}" :list="true" />
 
                     @forelse(\Illuminate\Support\Facades\Auth::user()->students->where('active', true) as $student)
                         <x-list-clickable-item href="{{ route('student.set', $student) }}" title="{{ $student->name }}">

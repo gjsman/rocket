@@ -33,13 +33,17 @@ class AssignmentPolicy
     public function view(User $user, Assignment $assignment): Response|bool
     {
         if(!student()) {
+            /** Admin? Yes */
             if($user->rank >= 5) return true;
+            /** Teacher? Yes */
             if($user->id === $assignment->section->course->instructor_id) return true;
         } else {
+            /** Visible and Student? No access */
             if(!$assignment->visible) return false;
-            // if(!student()->can('view', $assignment->section)) return false;
+            /** Not enrolled and Student? No access */
             if(student()->enrolled($assignment->section->course)) return true;
         }
+        /** None of the above, no access */
         return false;
     }
 

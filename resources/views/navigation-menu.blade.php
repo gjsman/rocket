@@ -23,6 +23,9 @@
                         {{ __('Instructors') }}
                     </x-nav-link>
                     @if(\Illuminate\Support\Facades\Auth::check())
+                        <x-nav-link href="{{ route('calendar') }}" :active="request()->routeIs('calendar')">
+                            {{ __('Calendar') }}
+                        </x-nav-link>
                         @if(\Illuminate\Support\Facades\Auth::user()->rank >= 5)
                             <x-nav-link href="{{ url('/admin') }}">
                                 {{ __('Admin') }}
@@ -183,6 +186,9 @@
                 {{ __('Cart') }}
             </x-responsive-nav-link>
             @if(\Illuminate\Support\Facades\Auth::check())
+                <x-responsive-nav-link href="{{ route('calendar') }}" :active="request()->routeIs('calendar')">
+                    {{ __('Calendar') }}
+                </x-responsive-nav-link>
                 @if(\Illuminate\Support\Facades\Auth::user()->rank >= 5)
                     <x-responsive-nav-link href="{{ url('/admin') }}">
                         {{ __('Admin') }}

@@ -12,7 +12,11 @@ class Section extends Model
     use HasFactory;
     use \App\Traits\Element;
 
-    protected $fillable = ['name', 'short_summary', 'summary', 'course_id', 'visible', 'order'];
+    protected $fillable = ['name', 'short_summary', 'summary', 'course_id', 'visible', 'order', 'date', 'show_date'];
+
+    protected $casts = [
+        'date' => 'date'
+    ];
 
     public function course(): BelongsTo
     {

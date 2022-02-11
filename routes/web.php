@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookPageController;
+use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ElementController;
 use App\Http\Controllers\FileController;
@@ -53,6 +54,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/course/{course}/enroll/{student}', [CourseController::class, 'enroll'])->name('course.enroll');
     Route::get('/course/{course}/unenroll/{student}', [CourseController::class, 'unenroll'])->name('course.unenroll');
+
+    Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
 
     /** Only students can see these routes. */
     Route::middleware(['student'])->group(function () {
