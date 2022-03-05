@@ -62,4 +62,9 @@ class Section extends Model
     {
         return $this->hasMany(Forum::class);
     }
+
+    public function meetings(): HasMany
+    {
+        return $this->hasMany(ZoomMeeting::class);
+    }
 }

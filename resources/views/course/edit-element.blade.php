@@ -40,6 +40,8 @@
                 $editorName = 'edit-text-block';
             } elseif($editorName === 'edit-bookpage') {
                 $editorName = 'edit-book-page';
+            } elseif($editorName === 'edit-zoommeeting') {
+                $editorName = 'edit-zoom-meeting';
             }
         @endphp
         @if(isset($element))

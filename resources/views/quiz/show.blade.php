@@ -4,8 +4,20 @@
             <x-element-back-button :element="$element" />
         </div>
         <div class="col-span-2 h-fit">
+            <x-panel class="mb-6">
+                <x-slot name="header">
+                    <x-header>
+                        <x-slot name="title">
+                            {{ $element->name }}
+                        </x-slot>
+                    </x-header>
+                </x-slot>
+                <p>{!! $element->summary !!}</p>
+            </x-panel>
             <x-panel>
-                <p>{{ __('Feature not present') }}</p>
+                @php
+                    dump($element)
+                @endphp
             </x-panel>
         </div>
     </div>

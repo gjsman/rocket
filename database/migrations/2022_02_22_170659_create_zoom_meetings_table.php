@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAssignmentsTable extends Migration
+class CreateZoomMeetingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateAssignmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('assignments', function (Blueprint $table) {
+        Schema::create('zoom_meetings', function (Blueprint $table) {
             $table->id();
             $table->integer('section_id');
             $table->string('name');
@@ -22,8 +22,7 @@ class CreateAssignmentsTable extends Migration
             $table->boolean('visible')->default(true);
             $table->dateTime('due')->nullable();
             $table->boolean('show_due_date')->default(true);
-            $table->boolean('allow_late_submissions')->default(true);
-            $table->integer('gradeable_category_id');
+            $table->boolean('open')->default(true);
             $table->timestamps();
         });
     }
@@ -35,6 +34,6 @@ class CreateAssignmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('assignments');
+        Schema::dropIfExists('zoom_meetings');
     }
 }

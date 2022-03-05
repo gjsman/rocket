@@ -22,7 +22,7 @@ class Grader extends Component
     {
         if(!is_numeric($this->score)) $this->score = "0";
         if((int) $this->score < 0) $this->score = "0";
-        if((int) $this->score > 100) $this->score = "100";
+        if((int) $this->score > 125) $this->score = "100";
         return view('livewire.grader');
     }
 

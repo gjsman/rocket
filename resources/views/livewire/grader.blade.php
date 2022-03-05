@@ -4,6 +4,7 @@
         <x-header title="{{ __('Grade') }}" />
     </x-slot>
     <p class="mb-2">{{ __('Current grade') }}: @if($element->grade === null) {{ __('Unassigned') }} @else {{ $element->grade->value.__(' / ').$element->grade->base }} @endif</p>
+    <p class="mb-2">{{ __('Maximum grade: 125 / 100') }}</p>
     <p>
         {{ __('New grade: ') }}
     <x-input wire:model="score" class="inline" onclick="this.select()" type="number" id="score" name="score" style="max-width: 75px;" />

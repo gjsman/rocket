@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\Element;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Assignment extends Model
@@ -17,6 +18,7 @@ class Assignment extends Model
         'summary',
         'order',
         'section_id',
+        'gradeable_category_id',
         'visible',
         'due',
         'allow_late_submissions',
@@ -40,5 +42,10 @@ class Assignment extends Model
             return $this->submissions()->where('user_id', $user->id)->exists();
         }
         return null;
+    }
+
+    public function gradeable_category(): BelongsTo
+    {
+        return $this->belongsTo(GradeableCategory::class);
     }
 }

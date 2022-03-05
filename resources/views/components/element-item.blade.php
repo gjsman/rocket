@@ -20,6 +20,11 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 @endif
+                @if(strtolower(class_basename($element)) === 'zoommeeting')
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                @endif
                 @if(strtolower(class_basename($element)) === 'link')
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline mb-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
@@ -88,29 +93,38 @@
                 @endcan
             </div>
         </x-header>
-
     </x-slot>
     @if($element->due)
-        @if($element->show_due_date)
-            @if($element->due->isPast())
-                @if(!$element->hasSubmittedFile(student(), \Illuminate\Support\Facades\Auth::user()))
-                    <x-alert-warning title="{{ __('Due ').$element->due->diffForHumans().__(' on ').$element->due->format('l, F jS, Y').__(' at ').$element->due->format('H:i').__(' UTC') }}" class="mb-4">
-                        @if($element->allow_late_submissions)
-                            {{ __('Late submissions are accepted with possible penalties.') }}
-                        @else
-                            {{ __('Late submissions are not accepted without a waiver.') }}
-                        @endif
-                    </x-alert-warning>
-                @endif
-            @else
-                @if(!$element->hasSubmittedFile(student(), \Illuminate\Support\Facades\Auth::user()))
-                    <x-alert-info title="{{ __('Due ').$element->due->diffForHumans().__(' on ').$element->due->format('l, F jS, Y').__(' at ').$element->due->format('H:i').__(' UTC') }}" class="mb-4">
-                        @if($element->allow_late_submissions)
-                            {{ __('Late submissions are accepted with possible penalties.') }}
-                        @else
-                            {{ __('Late submissions are not accepted without a waiver.') }}
-                        @endif
-                    </x-alert-info>
+        @if(class_basename($element) === 'ZoomMeeting')
+            <?php
+                $adjective = 'takes';
+                if($element->due->isPast()) $adjective = 'took';
+                $title = __('Meeting ').$adjective.__(' place ').$element->due->diffForHumans().__(' on ').$element->due->format('l, F jS, Y').__(' at ').$element->due->format('H:i').__(' UTC');
+            ?>
+            <x-alert-info title="{{ $title }}" class="mb-4">
+            </x-alert-info>
+        @else
+            @if($element->show_due_date)
+                @if($element->due->isPast())
+                    @if(!$element->hasSubmittedFile(student(), \Illuminate\Support\Facades\Auth::user()))
+                        <x-alert-warning title="{{ __('Due ').$element->due->diffForHumans().__(' on ').$element->due->format('l, F jS, Y').__(' at ').$element->due->format('H:i').__(' UTC') }}" class="mb-4">
+                            @if($element->allow_late_submissions)
+                                {{ __('Late submissions are accepted with possible penalties.') }}
+                            @else
+                                {{ __('Late submissions are not accepted without a waiver.') }}
+                            @endif
+                        </x-alert-warning>
+                    @endif
+                @else
+                    @if(!$element->hasSubmittedFile(student(), \Illuminate\Support\Facades\Auth::user()))
+                        <x-alert-info title="{{ __('Due ').$element->due->diffForHumans().__(' on ').$element->due->format('l, F jS, Y').__(' at ').$element->due->format('H:i').__(' UTC') }}" class="mb-4">
+                            @if($element->allow_late_submissions)
+                                {{ __('Late submissions are accepted with possible penalties.') }}
+                            @else
+                                {{ __('Late submissions are not accepted without a waiver.') }}
+                            @endif
+                        </x-alert-info>
+                    @endif
                 @endif
             @endif
         @endif

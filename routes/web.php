@@ -16,7 +16,9 @@ use App\Http\Controllers\ShopController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TextBlockController;
 use App\Http\Controllers\VideoController;
+use App\Http\Controllers\ZoomMeetingController;
 use App\Models\Assignment;
+use App\Models\ZoomMeeting;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -87,6 +89,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
         /** Elements */
         Route::get('/video/{element}', [VideoController::class, 'show'])->name('video');
+        Route::get('/meeting/{element}', [ZoomMeeting::class, 'show'])->name('zoommeeting');
         Route::get('/link/{element}', [LinkController::class, 'show'])->name('link');
         Route::get('/file/{element}', [FileController::class, 'show'])->name('file');
         Route::get('/book/{element}', [BookController::class, 'show'])->name('book');
@@ -105,6 +108,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/video/create/{section}', [VideoController::class, 'create'])->name('video.create');
         Route::get('/video/{element}/edit', [VideoController::class, 'edit'])->name('video.edit');
         Route::get('/video/{element}/delete', [VideoController::class, 'delete'])->name('video.delete');
+
+        /** Videos */
+        Route::get('/meeting/create/{section}', [ZoomMeetingController::class, 'create'])->name('meeting.create');
+        Route::get('/meeting/{element}/edit', [ZoomMeetingController::class, 'edit'])->name('zoommeeting.edit');
+        Route::get('/meeting/{element}/delete', [ZoomMeetingController::class, 'delete'])->name('zoommeeting.delete');
 
         /** Links */
         Route::get('/link/create/{section}', [LinkController::class, 'create'])->name('link.create');
