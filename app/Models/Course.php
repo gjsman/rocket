@@ -30,7 +30,8 @@ class Course extends Model
         'end_time',
         'counterpart_id',
         'price',
-        'visible'
+        'visible',
+        'left_column_content',
     ];
 
     public function instructor(): BelongsTo

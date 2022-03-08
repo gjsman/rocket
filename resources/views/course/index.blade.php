@@ -9,10 +9,20 @@
             <x-panel class="mb-6">
                 <a class="text-green-700 font-semibold" href="{{ route('dashboard') }}">&larr; {{ __('Back to my courses') }}</a>
             </x-panel>
+            @if($course->left_column_content)
+                <x-panel class="mb-6">
+                    <x-slot name="header">
+                        <x-header title="{{ $course->name }}" />
+                    </x-slot>
+                    {!! $course->left_column_content !!}
+                </x-panel>
+            @endif
             <x-panel class="mb-6">
-                <x-slot name="header">
-                    <x-header title="{{ $course->name }}" />
-                </x-slot>
+                @if(!$course->left_column_content)
+                    <x-slot name="header">
+                        <x-header title="{{ $course->name }}" />
+                    </x-slot>
+                @endif
                 @livewire('course-navigation', ['course' => $course, 'location' => $location])
             </x-panel>
         </div>

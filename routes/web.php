@@ -96,6 +96,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/assignment/{element}', [AssignmentController::class, 'show'])->name('assignment');
         Route::get('/assignment/{element}/previous', [AssignmentController::class, 'showPrevious'])->name('assignment.previous');
         Route::get('/quiz/{element}', [QuizController::class, 'show'])->name('quiz');
+        Route::get('/quiz/{element}/previous', [QuizController::class, 'showPrevious'])->name('quiz.previous');
+        Route::get('/quiz/{element}', [QuizController::class, 'show'])->name('quiz');
         Route::get('/forum/{element}', [ForumController::class, 'show'])->name('forum');
     });
 
@@ -150,6 +152,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/quiz/create/{section}', [QuizController::class, 'create'])->name('quiz.create');
         Route::get('/quiz/{element}/edit', [QuizController::class, 'edit'])->name('quiz.edit');
         Route::get('/quiz/{element}/delete', [QuizController::class, 'delete'])->name('quiz.delete');
+        Route::get('/quiz/submission/{element}', [QuizController::class, 'showSubmission'])->name('quiz.showSubmission');
+        Route::get('/quiz/{element}/all', [QuizController::class, 'all'])->name('quiz.all');
 
         /** Forums */
         Route::get('/forum/create/{section}', [ForumController::class, 'create'])->name('forum.create');

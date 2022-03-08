@@ -25,6 +25,7 @@ class EditCourse extends Component implements Forms\Contracts\HasForms
             'prerequisite' => $this->element->prerequisite,
             'instructor_access_link' => $this->element->instructor_access_link,
             'visible' => $this->element->visible,
+            'left_column_content' => $this->element->left_column_content,
             'show_instructor_access' => $this->element->show_instructor_access,
         ]);
     }
@@ -37,6 +38,7 @@ class EditCourse extends Component implements Forms\Contracts\HasForms
             Forms\Components\TextInput::make('short_summary')->required(),
             Forms\Components\TextInput::make('prerequisite'),
             Forms\Components\RichEditor::make('instructor_access_link'),
+            Forms\Components\RichEditor::make('left_column_content'),
             Forms\Components\Checkbox::make('show_instructor_access')->default(false),
             Forms\Components\Checkbox::make('visible')->default(true),
         ];

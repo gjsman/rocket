@@ -2,22 +2,60 @@
     <div class="md:grid grid-cols-1 md:grid-cols-3 md:gap-6">
         <div class="col-span-1 h-fit">
             <x-element-back-button :element="$element" />
+            <x-panel class="mb-6">
+                <nav class="space-y-1" aria-label="Sidebar">
+                    <x-sidebar-item href="{{ route('quiz', ['element' => $element]) }}" :active="true">
+                        {{ __('New Submission') }}
+                    </x-sidebar-item>
+                    <x-sidebar-item href="{{ route('quiz.previous', ['element' => $element]) }}" :active="false">
+                        {{ __('Previous Submissions') }}
+                    </x-sidebar-item>
+                    @can('update', $element)
+                        <x-sidebar-item href="{{ route('quiz.all', ['element' => $element]) }}" :active="false">
+                            {{ __('All Submissions') }}
+                        </x-sidebar-item>
+                    @endcan
+                </nav>
+            </x-panel>
         </div>
         <div class="col-span-2 h-fit">
-            <x-panel class="mb-6">
-                <x-slot name="header">
-                    <x-header>
-                        <x-slot name="title">
-                            {{ $element->name }}
-                        </x-slot>
-                    </x-header>
-                </x-slot>
-                <p>{!! $element->summary !!}</p>
-            </x-panel>
             <x-panel>
-                @php
-                    dump($element)
-                @endphp
+                <x-slot name="header">
+                    <x-header title="{{ __('New Submission') }}" />
+                </x-slot>
+                @if($element->due)
+                    @if($element->show_due_date)
+                        @if($element->due->isPast())
+                            @if(!$element->hasSubmittedFile(student(), \Illuminate\Support\Facades\Auth::user()))
+                                <x-alert-warning title="{{ __('Due ').$element->due->diffForHumans().__(' on ').$element->due->format('l, F jS, Y').__(' at ').$element->due->format('H:i').__(' UTC') }}" class="mb-4">
+                                    @if($element->allow_late_submissions)
+                                        {{ __('Late submissions are accepted with possible penalties.') }}
+                                    @else
+                                        {{ __('Late submissions are not accepted without a waiver.') }}
+                                    @endif
+                                </x-alert-warning>
+                            @endif
+                            @if($element->allow_late_submissions)
+                                @livewire('edit-quiz-submission', ['quiz' => $element])
+                            @endif
+                        @else
+                            @if(!$element->hasSubmittedFile(student(), \Illuminate\Support\Facades\Auth::user()))
+                                <x-alert-info title="{{ __('Due ').$element->due->diffForHumans().__(' on ').$element->due->format('l, F jS, Y').__(' at ').$element->due->format('H:i').__(' UTC') }}" class="mb-4">
+                                    @if($element->allow_late_submissions)
+                                        {{ __('Late submissions are accepted with possible penalties.') }}
+                                    @else
+                                        {{ __('Late submissions are not accepted without a waiver.') }}
+                                    @endif
+                                </x-alert-info>
+                            @endif
+                            @livewire('edit-quiz-submission', ['quiz' => $element])
+                        @endif
+                    @else
+                        @livewire('edit-quiz-submission', ['quiz' => $element])
+                    @endif
+                @else
+                    @livewire('edit-quiz-submission', ['quiz' => $element])
+                @endif
             </x-panel>
         </div>
     </div>
