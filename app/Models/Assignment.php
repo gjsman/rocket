@@ -23,10 +23,12 @@ class Assignment extends Model
         'due',
         'allow_late_submissions',
         'show_due_date',
+        'due_old',
     ];
 
     protected $casts = [
-        'due' => 'datetime'
+        'due' => 'datetime',
+        'due_old' => 'datetime',
     ];
 
     public function submissions(): HasMany

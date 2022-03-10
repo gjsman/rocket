@@ -37,7 +37,7 @@ class QuizPolicy
             if($user->id === $quiz->section->course->instructor_id) return true;
         } else {
             if(!$quiz->visible) return false;
-            if(!student()->can('view', $quiz->section)) return false;
+            // if(!student()->can('view', $quiz->section)) return false;
             if(student()->enrolled($quiz->section->course)) return true;
         }
         return false;

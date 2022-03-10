@@ -12,6 +12,12 @@
         <x-sidebar-item href="{{ route('course.location', ['course' => $course, 'location' => 'participants']) }}" :active="$location === 'participants'">
             {{ __('Students') }}
         </x-sidebar-item>
+        <x-sidebar-item href="{{ route('course.location', ['course' => $course, 'location' => 'monitors']) }}" :active="$location === 'monitors'">
+            {{ __('Monitors') }}
+        </x-sidebar-item>
+        <x-sidebar-item href="{{ route('course.location', ['course' => $course, 'location' => 'graders']) }}" :active="$location === 'graders'">
+            {{ __('Graders') }}
+        </x-sidebar-item>
         <x-sidebar-item href="{{ route('course.location', ['course' => $course, 'location' => 'gradebook']) }}" :active="$location === 'gradebook'">
             {{ __('Gradebook') }}
         </x-sidebar-item>

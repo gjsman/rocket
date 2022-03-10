@@ -16,6 +16,11 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @if(\Illuminate\Support\Facades\Auth::check())
+                        <x-nav-link href="{{ route('calendar') }}" :active="request()->routeIs('calendar')">
+                            {{ __('Upcoming') }}
+                        </x-nav-link>
+                    @endif
                     <x-nav-link href="{{ route('shop') }}" :active="request()->routeIs('shop')">
                         {{ __('Shop') }}
                     </x-nav-link>
@@ -23,9 +28,6 @@
                         {{ __('Instructors') }}
                     </x-nav-link>
                     @if(\Illuminate\Support\Facades\Auth::check())
-                        <x-nav-link href="{{ route('calendar') }}" :active="request()->routeIs('calendar')">
-                            {{ __('Calendar') }}
-                        </x-nav-link>
                         @if(\Illuminate\Support\Facades\Auth::user()->rank >= 5)
                             <x-nav-link href="{{ url('/admin') }}">
                                 {{ __('Admin') }}
@@ -176,6 +178,11 @@
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            @if(\Illuminate\Support\Facades\Auth::check())
+                <x-responsive-nav-link href="{{ route('calendar') }}" :active="request()->routeIs('calendar')">
+                    {{ __('Upcoming') }}
+                </x-responsive-nav-link>
+            @endif
             <x-responsive-nav-link href="{{ route('shop') }}" :active="request()->routeIs('shop')">
                 {{ __('Shop') }}
             </x-responsive-nav-link>
@@ -186,9 +193,6 @@
                 {{ __('Cart') }}
             </x-responsive-nav-link>
             @if(\Illuminate\Support\Facades\Auth::check())
-                <x-responsive-nav-link href="{{ route('calendar') }}" :active="request()->routeIs('calendar')">
-                    {{ __('Calendar') }}
-                </x-responsive-nav-link>
                 @if(\Illuminate\Support\Facades\Auth::user()->rank >= 5)
                     <x-responsive-nav-link href="{{ url('/admin') }}">
                         {{ __('Admin') }}

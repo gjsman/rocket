@@ -97,6 +97,24 @@
                         @endforelse
                     </nav>
                 </x-panel>
+            @elseif($location === 'monitors')
+                <x-panel class="mb-6">
+                    <x-slot name="header">
+                        <x-header title="{{ __('Course Monitors') }}" />
+                    </x-slot>
+                    <nav class="space-y-1">
+                        <x-sidebar-item href="#">{{ __('No preferred course monitors are set for the course.') }}</x-sidebar-item>
+                    </nav>
+                </x-panel>
+            @elseif($location === 'graders')
+                <x-panel class="mb-6">
+                    <x-slot name="header">
+                        <x-header title="{{ __('Graders') }}" />
+                    </x-slot>
+                    <nav class="space-y-1">
+                        <x-sidebar-item href="#">{{ __('No graders are enrolled in the course.') }}</x-sidebar-item>
+                    </nav>
+                </x-panel>
             @elseif($location === 'grades')
                 <x-panel class="mb-6">
                     <x-slot name="header">
