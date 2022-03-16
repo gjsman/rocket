@@ -12,6 +12,7 @@ use App\Http\Controllers\ForumController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\LinkController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\QuizTrueFalseQuestionController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TextBlockController;
@@ -130,6 +131,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/file/create/{section}', [FileController::class, 'create'])->name('file.create');
         Route::get('/file/{element}/edit', [FileController::class, 'edit'])->name('file.edit');
         Route::get('/file/{element}/delete', [FileController::class, 'delete'])->name('file.delete');
+
+        /** QuizTrueFalseQuestion */
+        Route::get('/quizTrueFalseQuestion/create/{quiz}', [QuizTrueFalseQuestionController::class, 'create'])->name('quiztruefalsequestion.create');
+        Route::get('/quizTrueFalseQuestion/{element}/edit', [QuizTrueFalseQuestionController::class, 'edit'])->name('quiztruefalsequestion.edit');
+        Route::get('/quizTrueFalseQuestion/{element}/delete', [QuizTrueFalseQuestionController::class, 'delete'])->name('quiztruefalsequestion.delete');
 
         /** Books */
         Route::get('/book/create/{section}', [BookController::class, 'create'])->name('book.create');

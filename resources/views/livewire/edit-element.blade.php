@@ -19,9 +19,15 @@
                                 {{ __('Cancel') }}
                             </x-secondary-button>
                         @else
-                            <x-secondary-button href="{{ route(strtolower(class_basename($element->parent)).'.location', ['element' => $element->parent, 'location' => $element->id]) }}">
-                                {{ __('Cancel') }}
-                            </x-secondary-button>
+                            @if(class_basename($element->parent) === 'Quiz')
+                                <x-secondary-button href="{{ route('quiz', ['element' => $element->parent]) }}">
+                                    {{ __('Cancel') }}
+                                </x-secondary-button>
+                            @else
+                                <x-secondary-button href="{{ route(strtolower(class_basename($element->parent)).'.location', ['element' => $element->parent, 'location' => $element->id]) }}">
+                                    {{ __('Cancel') }}
+                                </x-secondary-button>
+                            @endif
                         @endif
                     @else
                         @if(isset($element->section))

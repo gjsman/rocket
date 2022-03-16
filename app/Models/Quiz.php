@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\Element;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 
@@ -73,4 +74,9 @@ class Quiz extends Model
         }
         return null;
     }
+
+    public function trueFalse() {
+        return $this->hasMany(QuizTrueFalseQuestion::class);
+    }
+
 }

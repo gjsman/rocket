@@ -42,6 +42,8 @@
                 $editorName = 'edit-book-page';
             } elseif($editorName === 'edit-zoommeeting') {
                 $editorName = 'edit-zoom-meeting';
+            } elseif($editorName === 'edit-quiztruefalsequestion') {
+                $editorName = 'edit-quiz-true-false-question';
             }
         @endphp
         @if(isset($element))

@@ -2,6 +2,7 @@
 namespace App\Traits;
 
 use App\Models\Checkoff;
+use App\Models\Quiz;
 use App\Models\Student;
 use App\Models\Section;
 use App\Models\User;
@@ -10,16 +11,16 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-trait Element {
+trait QuizElement {
+
+    public function quiz(): BelongsTo
+    {
+        return $this->belongsTo(Quiz::class);
+    }
 
     public function parent(): BelongsTo
     {
-        return $this->section();
-    }
-
-    public function section(): BelongsTo
-    {
-        return $this->belongsTo(Section::class);
+        return $this->quiz();
     }
 
     public function item()

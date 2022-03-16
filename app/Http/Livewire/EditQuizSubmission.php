@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Quiz;
 use App\Models\QuizSubmission;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -12,6 +13,7 @@ class EditQuizSubmission extends Component
     public ?QuizSubmission $element = null;
     public Quiz $quiz;
     public bool $quizStarted = false;
+    public ?Collection $elements = null;
 
     public function render()
     {
@@ -37,6 +39,14 @@ class EditQuizSubmission extends Component
                 $this->quizStarted = true;
             }
         }
+        if(Auth::user()->can('update', $this->quiz)) {
+            $trueFalse = $this->quiz->trueFalse;
+        } else {
+            $trueFalse = $this->quiz->trueFalse->where('visible', true);
+        }
+        $elements = new Collection;
+        $elements = $elements->merge($trueFalse);
+        $this->elements = $elements->sortBy('order');
     }
 
     public function submitQuiz() {
