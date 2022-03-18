@@ -160,23 +160,6 @@
                 </li>
             @endforeach
         </ul>
-        @foreach($elements as $element)
-            @php
-                dump($element);
-            @endphp
-            <x-panel class="mt-4">
-                <x-slot name="header">
-                    <x-header title="{{ $element->name }}" />
-                </x-slot>
-                <p class="mb-4">{!! $element->summary !!}</p>
-            </x-panel>
-        @endforeach
-        <x-panel class="mt-4">
-            <x-slot name="header">
-                <x-header title="{{ __('Question 1') }}" />
-            </x-slot>
-            <p class="mb-4">{{ __('Is faith, hope, or charity the most important virtue?') }}</p>
-        </x-panel>
         <x-button class="mt-4" wire:click="submitQuiz()">{{ __('Submit quiz') }}</x-button>
     @endif
 </div>

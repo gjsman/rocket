@@ -20,6 +20,7 @@ class CreateQuizTrueFalseQuestionsTable extends Migration
             $table->text('summary')->nullable();
             $table->integer('correct_answer')->default(false);
             $table->boolean('visible')->default(true);
+            $table->integer('order')->nullable();
             $table->timestamps();
         });
     }
