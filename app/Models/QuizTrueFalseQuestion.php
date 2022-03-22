@@ -18,4 +18,8 @@ class QuizTrueFalseQuestion extends Model
         'correct_answer',
         'visible',
     ];
+
+    public function answers() {
+        return $this->hasMany(QuizTrueFalseAnswer::class);
+    }
 }

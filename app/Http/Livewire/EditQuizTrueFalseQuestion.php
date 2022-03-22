@@ -14,7 +14,7 @@ class EditQuizTrueFalseQuestion extends Component implements Forms\Contracts\Has
     use Forms\Concerns\InteractsWithForms;
 
     public ?QuizTrueFalseQuestion $element = null;
-public Quiz $quiz;
+    public Quiz $quiz;
 
     public function mount(): void
     {
