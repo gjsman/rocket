@@ -61,10 +61,10 @@
                             {!! $element->summary !!}
                         </div>
                         @if(class_basename($element) === 'QuizTrueFalseQuestion')
-                            @livewire('edit-quiz-true-false-question-form', ['quizTrueFalseQuestion' => $element, 'quizSubmission' => $quizSubmission])
+                            @livewire('edit-quiz-true-false-question-form', ['quizTrueFalseQuestion' => $element, 'quizSubmission' => $quizSubmission], key('TF-'.$element->id))
                         @endif
                         @if(class_basename($element) === 'QuizMultipleChoiceQuestion')
-                            @livewire('edit-quiz-multiple-choice-form', ['quizMultipleChoiceQuestion' => $element, 'quizSubmission' => $quizSubmission])
+                            @livewire('edit-quiz-multiple-choice-form', ['quizMultipleChoiceQuestion' => $element, 'quizSubmission' => $quizSubmission], key('MC-'.$element->id))
                         @endif
                     </x-panel>
                 </li>
