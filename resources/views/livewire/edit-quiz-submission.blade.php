@@ -1,4 +1,5 @@
 <div>
+    <?php $quizSubmission = $element; ?>
     {{-- A good traveler has no fixed plans and is not intent upon arriving. --}}
     @if(!$quizStarted)
         @if($quiz->attemptInProgress())
@@ -56,12 +57,15 @@
                                 </div>
                             </x-header>
                         </x-slot>
-                        @if(class_basename($element) === "QuizTrueFalseQuestion")
-                            @livewire('edit-quiz-true-false-question-form', ['quizTrueFalseQuestion' => $element])
-                        @endif
                         <div class="prose">
                             {!! $element->summary !!}
                         </div>
+                        @if(class_basename($element) === 'QuizTrueFalseQuestion')
+                            @livewire('edit-quiz-true-false-question-form', ['quizTrueFalseQuestion' => $element, 'quizSubmission' => $quizSubmission])
+                        @endif
+                        @if(class_basename($element) === 'QuizMultipleChoiceQuestion')
+                            @livewire('edit-quiz-multiple-choice-form', ['quizMultipleChoiceQuestion' => $element, 'quizSubmission' => $quizSubmission])
+                        @endif
                     </x-panel>
                 </li>
             @endforeach

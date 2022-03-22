@@ -79,4 +79,8 @@ class Quiz extends Model
         return $this->hasMany(QuizTrueFalseQuestion::class);
     }
 
+    public function multipleChoice() {
+        return $this->hasMany(QuizMultipleChoiceQuestion::class);
+    }
+
 }

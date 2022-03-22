@@ -11,10 +11,15 @@ class QuizTrueFalseAnswer extends Model
 
     protected $fillable = [
         'quiz_true_false_question_id',
+        'quiz_submission_id',
         'user_id',
         'student_id',
         'selection',
     ];
+
+    public function quiz_submission() {
+        return $this->belongsTo(QuizSubmission::class);
+    }
 
     public function quiz_true_false_question() {
         return $this->belongsTo(QuizTrueFalseQuestion::class);

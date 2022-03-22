@@ -22,11 +22,14 @@ class EditQuizSubmission extends Component
     {
         if(Auth::user()->can('update', $this->quiz)) {
             $trueFalse = $this->quiz->trueFalse;
+            $multipleChoice = $this->quiz->multipleChoice;
         } else {
             $trueFalse = $this->quiz->trueFalse->where('visible', true);
+            $multipleChoice = $this->quiz->multipleChoice->where('visible', true);
         }
         $elements = new Collection;
         $elements = $elements->merge($trueFalse);
+        $elements = $elements->merge($multipleChoice);
         $this->elements = $elements->sortBy('order');
         return view('livewire.edit-quiz-submission');
     }

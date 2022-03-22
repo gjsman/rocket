@@ -44,6 +44,8 @@
                 $editorName = 'edit-zoom-meeting';
             } elseif($editorName === 'edit-quiztruefalsequestion') {
                 $editorName = 'edit-quiz-true-false-question';
+            } elseif($editorName === 'edit-quizmultiplechoicequestion') {
+                $editorName = 'edit-quiz-multiple-choice-question';
             }
         @endphp
         @if(isset($element))

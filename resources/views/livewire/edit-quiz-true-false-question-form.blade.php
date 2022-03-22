@@ -1,5 +1,5 @@
 <div>
-    <p>
+    <p class="mt-4">
         @if($selected === true)
             <x-button wire:click="setSelection(true)" class="bg-blue-500 hover:bg-blue-600">True</x-button>
         @else

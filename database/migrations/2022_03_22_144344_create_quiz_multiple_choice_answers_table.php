@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateQuizTrueFalseAnswersTable extends Migration
+class CreateQuizMultipleChoiceAnswersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateQuizTrueFalseAnswersTable extends Migration
      */
     public function up()
     {
-        Schema::create('quiz_true_false_answers', function (Blueprint $table) {
+        Schema::create('quiz_multiple_choice_answers', function (Blueprint $table) {
             $table->id();
-            $table->integer('quiz_true_false_question_id');
+            $table->integer('quiz_multiple_choice_question_id');
             $table->integer('quiz_submission_id');
             $table->integer('user_id')->nullable();
             $table->integer('student_id')->nullable();
-            $table->boolean('selection')->default(false);
+            $table->integer('selection')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateQuizTrueFalseAnswersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('quiz_true_false_answers');
+        Schema::dropIfExists('quiz_multiple_choice_answers');
     }
 }

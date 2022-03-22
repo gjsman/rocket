@@ -23,6 +23,7 @@ class EditQuizTrueFalseQuestion extends Component implements Forms\Contracts\Has
                 'name' => $this->element->name,
                 'summary' => $this->element->summary,
                 'visible' => $this->element->visible,
+                'correct_answer' => $this->element->correct_answer,
             ]);
         } else {
             $this->form->fill();
@@ -35,6 +36,7 @@ class EditQuizTrueFalseQuestion extends Component implements Forms\Contracts\Has
             Forms\Components\TextInput::make('name')->required(),
             Forms\Components\RichEditor::make('summary'),
             Forms\Components\Checkbox::make('visible')->default(true),
+            Forms\Components\Checkbox::make('correct_answer')->default(false)->label('Correct answer is true (leave unchecked if correct answer is false)'),
         ];
     }
 

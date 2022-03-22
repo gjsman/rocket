@@ -12,6 +12,7 @@ use App\Http\Controllers\ForumController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\LinkController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\QuizMultipleChoiceQuestionController;
 use App\Http\Controllers\QuizTrueFalseQuestionController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\StudentController;
@@ -136,6 +137,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/quizTrueFalseQuestion/create/{quiz}', [QuizTrueFalseQuestionController::class, 'create'])->name('quiztruefalsequestion.create');
         Route::get('/quizTrueFalseQuestion/{element}/edit', [QuizTrueFalseQuestionController::class, 'edit'])->name('quiztruefalsequestion.edit');
         Route::get('/quizTrueFalseQuestion/{element}/delete', [QuizTrueFalseQuestionController::class, 'delete'])->name('quiztruefalsequestion.delete');
+
+        /** QuizTrueFalseQuestion */
+        Route::get('/quizMultipleChoiceQuestion/create/{quiz}', [QuizMultipleChoiceQuestionController::class, 'create'])->name('quizmultiplechoicequestion.create');
+        Route::get('/quizMultipleChoiceQuestion/{element}/edit', [QuizMultipleChoiceQuestionController::class, 'edit'])->name('quizmultiplechoicequestion.edit');
+        Route::get('/quizMultipleChoiceQuestion/{element}/delete', [QuizMultipleChoiceQuestionController::class, 'delete'])->name('quizmultiplechoicequestion.delete');
 
         /** Books */
         Route::get('/book/create/{section}', [BookController::class, 'create'])->name('book.create');
